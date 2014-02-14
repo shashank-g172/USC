@@ -1,0 +1,3 @@
+Cameras 2
+Laptops -10
+Printers 5

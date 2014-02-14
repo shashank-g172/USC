@@ -1,0 +1,498 @@
+#include<windows.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+#include <GL/glut.h>
+
+void Display(void);
+void CreateEnvironment(void);
+void MakeGeometry(void);
+void MakeLighting(void);
+void MakeCamera(int,int,int);
+void HandleKeyboard(unsigned char key,int x, int y);
+void HandleSpecialKeyboard(int key,int x, int y);
+void HandleMouse(int,int,int,int);
+void HandleMainMenu(int);
+void HandleSpeedMenu(int);
+void HandleVisibility(int vis);
+void HandleIdle(void);
+
+
+#define TRUE  1
+#define FALSE 0
+#define PI 3.141592653589793238462643
+
+#define DRAFT  0
+#define MEDIUM 1
+#define BEST   2
+int drawquality = BEST;
+int spincamera = FALSE;
+int anothercam=FALSE;
+int cameradirection = 1;
+double updownrotate = 60;
+int ballbounce=TRUE;
+double ballspeed = 2;
+int zoom=100.0;
+int ball =TRUE;
+float a=0,b=0,c=0;
+
+#define OVALID      1
+#define SPHEREID    2
+#define BOXID       3
+#define PLANEID     4
+#define TEXTID      5
+void Reshape(int w,int h)
+{
+    glViewport(0,0,w,h);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    if(w<=h)
+        glOrtho(-1.0,1.0,-1.0*(GLfloat)h/(GLfloat)w,1.0*(GLfloat)h/(GLfloat)w,-10.0,10.0);
+    else
+        glOrtho(-1.0*(GLfloat)h/(GLfloat)w,1.0*(GLfloat)h/(GLfloat)w,-1.0,1.0,-10.0,10.0);
+    glMatrixMode(GL_MATRIX_MODE);
+    glutPostRedisplay();
+}
+
+int main(int argc,char **argv)
+{
+   int i,j,depth;
+   int mainmenu,speedmenu;
+
+   /* Set things up and go */
+   glutInit(&argc,argv);
+   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+   glutCreateWindow("Football Field");
+   glutDisplayFunc(Display);
+   glutVisibilityFunc(HandleVisibility);
+   glutKeyboardFunc(HandleKeyboard);
+   glutSpecialFunc(HandleSpecialKeyboard);
+   glutMouseFunc(HandleMouse);
+   glutReshapeFunc(Reshape);
+   CreateEnvironment();
+
+   /* Set up some menus */
+   speedmenu = glutCreateMenu(HandleSpeedMenu);
+   glutAddMenuEntry("Slow",1);
+   glutAddMenuEntry("Medium",2);
+   glutAddMenuEntry("Fast",3);
+   mainmenu = glutCreateMenu(HandleMainMenu);
+   glutAddMenuEntry("Toggle camera spin sideways",1);
+   glutAddMenuEntry("Toggle camera spin veritcally",3);
+   glutAddMenuEntry("Toggle ball movement",2);
+
+   glutAddSubMenu("Ball speed",speedmenu);
+
+   glutAddMenuEntry("Quit",100);
+   glutAttachMenu(GLUT_RIGHT_BUTTON);
+
+   glutMainLoop();
+   return(0);
+}
+
+/*
+   This is where global settings are made, that is,
+   things that will not change in time
+*/
+void CreateEnvironment(void)
+{
+   glEnable(GL_DEPTH_TEST);
+   glLineWidth(1.0);
+   glPointSize(1.0);
+   glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
+   glFrontFace(GL_CW);
+   glDisable(GL_CULL_FACE);
+   glClearColor(0.0,0.0,0.0,0.0);         /* Background colour */
+   glEnable(GL_COLOR_MATERIAL);
+}
+
+/*
+   This is the basic display callback routine
+   It creates the geometry, lighting, and viewing position
+   In this case it rotates the camera around the scene
+*/
+void Display(void)
+{
+   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+   glPushMatrix();
+   MakeCamera(FALSE,0,0);
+   MakeLighting();
+   MakeGeometry();
+   glPopMatrix();
+   glutSwapBuffers();
+}
+
+/*
+   Create the geometry
+*/
+void MakeGeometry(void)
+{
+   int i;
+   double radius = 0.5;
+   static double theta = 0;
+   GLfloat mshin1[] = {5.0};               /* For the sphere */
+   float angle;
+
+   /* Create a green ground plane */
+   glLoadName(PLANEID);
+
+   glBegin(GL_POLYGON);
+   glColor3f(0.0,0.5,0.0);
+   glNormal3f( 0.0, 1.0, 0.0);
+   glVertex3f( 2.5, -0.01, 1.5);
+   glVertex3f( 2.5, -0.01,-1.5);
+   glVertex3f(-2.5, -0.01,-1.5);
+   glVertex3f(-2.5, -0.01, 1.5);
+   glEnd();
+
+      glBegin(GL_POLYGON);
+   glColor3f(0.0,0.5,0.0);
+   glNormal3f( 0.0, 1.0, 0.0);
+   glVertex3f( 2.5, 0.0, 1.5);
+   glVertex3f( 2.5, 0.0,-1.5);
+   glVertex3f(-2.5, 0.0,-1.5);
+   glVertex3f(-2.5, 0.0, 1.5);
+   glEnd();
+glEnable(GL_LINE_SMOOTH);
+glLineWidth(2.5);
+   glColor3f(1.0,1.0,1.0);
+   glBegin(GL_LINES);
+   glNormal3f(0.0,1.0,0.0);
+   glVertex3f(0.0,0.0,1.3);
+   glVertex3f(0.0,0.0,-1.3);
+   glEnd();
+
+    glBegin(GL_LINE_LOOP);
+   glNormal3f( 0.0, 1.0, 0.0);
+   glVertex3f( 2.3, 0.0, 1.3);
+   glVertex3f( 2.3, 0.0,-1.3);
+   glVertex3f(-2.3, 0.0,-1.3);
+   glVertex3f(-2.3, 0.0, 1.3);
+   glEnd();
+
+   glColor3f(1.0,1.0,1.0);
+
+   //d for goal post 1
+   glBegin(GL_LINE_LOOP);
+
+   glVertex3f(2.3,0.0,0.8);
+   glVertex3f(2.3,0.0,-0.8);
+   glVertex3f(1.6,0.0,-0.8);
+   glVertex3f(1.6,0.0,0.8);
+   glEnd();
+
+    //d for goal post 2
+    glBegin(GL_LINE_LOOP);
+   glVertex3f(-2.3,0.0,0.8);
+   glVertex3f(-2.3,0.0,-0.8);
+   glVertex3f(-1.3,0.0,-0.8);
+   glVertex3f(-1.3,0.0,0.8);
+   glEnd();
+
+    glLineWidth(4.0);
+   glColor3f(1.0,1.0,1.0);
+   //goal post 1
+   glBegin(GL_LINE_LOOP);
+
+   glVertex3f(-2.3,0.7,0.5);
+   glVertex3f(-2.3,0.7,-0.5);
+   glVertex3f(-2.3,0.0,-0.5);
+   glVertex3f(-2.3,0.0,0.5);
+   glEnd();
+
+   /*goal post 2*/
+   glBegin(GL_LINE_LOOP);
+
+   glVertex3f(2.3,0.7,0.5);
+   glVertex3f(2.3,0.7,-0.5);
+   glVertex3f(2.3,0.0,-0.5);
+   glVertex3f(2.3,0.0,0.5);
+   glEnd();
+
+//corner flag
+glLineWidth(1.5);
+//right corner flag 1
+glBegin(GL_LINE_LOOP);
+   glVertex3f(2.3,0.0,1.3);
+   glVertex3f(2.3,0.4,1.3);
+glEnd();
+
+glColor3f(1.0,0.0,0.0);
+glBegin(GL_TRIANGLES);
+   glVertex3f(2.3,0.4,1.3);
+   glVertex3f(2.3,0.3,1.2);
+   glVertex3f(2.3,0.2,1.3);
+   glEnd();
+
+//left corner flag 1
+glColor3f(1.0,1.0,1.0);
+glBegin(GL_LINE_LOOP);
+   glVertex3f(2.3,0.0,-1.3);
+   glVertex3f(2.3,0.4,-1.3);
+glEnd();
+
+glColor3f(1.0,0.0,0.0);
+glBegin(GL_TRIANGLES);
+   glVertex3f(2.3,0.4,-1.3);
+   glVertex3f(2.3,0.3,-1.2);
+   glVertex3f(2.3,0.2,-1.3);
+   glEnd();
+
+//left corner flag 2
+glColor3f(1.0,1.0,1.0);
+glBegin(GL_LINE_LOOP);
+   glVertex3f(-2.3,0.0,1.3);
+   glVertex3f(-2.3,0.4,1.3);
+glEnd();
+
+glColor3f(1.0,0.0,0.0);
+glBegin(GL_TRIANGLES);
+   glVertex3f(-2.3,0.4,1.3);
+   glVertex3f(-2.3,0.3,1.2);
+   glVertex3f(-2.3,0.2,1.3);
+   glEnd();
+
+//right corner flag 2
+glColor3f(1.0,1.0,1.0);
+glBegin(GL_LINE_LOOP);
+   glVertex3f(-2.3,0.0,-1.3);
+   glVertex3f(-2.3,0.4,-1.3);
+glEnd();
+
+glColor3f(1.0,0.0,0.0);
+glBegin(GL_TRIANGLES);
+   glVertex3f(-2.3,0.4,-1.3);
+   glVertex3f(-2.3,0.3,-1.2);
+   glVertex3f(-2.3,0.2,-1.3);
+   glEnd();
+
+glColor3f(1.0,1.0,1.0);
+glLineWidth(2.5);
+glPushMatrix();
+   glTranslatef(-0.5,0.0,-0.5);
+   glBegin(GL_LINE_STRIP);
+   for(int i=-12;i<=12;i++)
+   {
+       angle=3.14159/12*i;
+       glVertex3f(0.6*cos(angle)+0.5,0.0,0.6*sin(angle)+0.5);
+   }
+   glEnd();
+   glPopMatrix();
+
+   /* Create a magenta bouncing ball */
+   glLoadName(SPHEREID);
+
+   glColor3f(0.5,0.5,0.5);
+   glPushMatrix();
+
+
+
+   glTranslatef(2.2*radius+2.2*(sin(PI*theta/180)-0.5)+a,0.09+b,0.0+c);
+   //int stop=2.2*radius+2.2*(sin(PI*theta/180)-0.5);
+
+   glScalef(radius,radius,radius);
+   if (!ball)
+      theta += ballspeed;
+
+  glutSolidSphere(0.2,100,100);
+
+glPopMatrix();
+
+    /* glPushMatrix();
+
+       if(!ballbounce)
+       {
+           glTranslatef(stop,2.2*radius+2.2*(sin(PI*theta/180)-0.5),0.0);
+
+           if(!ballbounce)
+              theta=+ballspeed;
+                   glutSolidSphere(0.2,100,100);
+       } */
+   glLoadName(TEXTID);
+
+}
+
+   //Set up the lighing environment
+
+void MakeLighting(void)
+{
+
+   GLfloat globalambient[] = {0.3,0.3,0.3,1.0};
+
+   /* The specifications for 3 light sources */
+   GLfloat pos0[] = {1.0,1.0,1.0,0.0};      /* w = 0 == infinite distance */
+   GLfloat dif0[] = {0.8,0.8,0.8,1.0};
+
+   GLfloat pos1[] = {5.0,-5.0,0.0,0.0};   /* Light from below */
+   GLfloat dif1[] = {0.4,0.4,0.4,1.0};      /* Fainter */
+
+
+      glLightfv(GL_LIGHT0,GL_POSITION,pos0);
+      glEnable(GL_LIGHT0);
+      glEnable(GL_LIGHTING);
+
+}
+
+/*
+   Set up the camera
+   Optionally creating a small viewport about
+   the mouse click point for object selection
+*/
+void MakeCamera(int pickmode,int x,int y)
+{
+   static double theta = 0;
+   GLint viewport[4];
+
+   /* Camera setup */
+   glMatrixMode(GL_PROJECTION);
+   glLoadIdentity();
+   gluPerspective(zoom,          /* Field of view */
+                   1.0,          /* aspect ratio  */
+                   0.1,1000.0);  /* near and far  */
+    //glFrustum(-0.1,0.1,-0.1,0.1,1,100);
+
+   glMatrixMode(GL_MODELVIEW);
+   glLoadIdentity();
+   gluLookAt(5*cos(theta*PI/180)*sin(updownrotate*PI/180),
+             5*cos(updownrotate*PI/180),
+             5*sin(theta*PI/180)*sin(updownrotate*PI/180),
+             0.0,0.0,0.0,
+             0.0,1.0,0.0);
+
+            /*glPushMatrix();
+    glMatrixMode(GL_PROJECTION);
+    //glLoadIdentity();
+    //glOrtho(0.0, 1.0, 0.0, 1.0, 0.0, 1.0);
+    glRotatef((GLfloat)updownrotate, 1.0, 0.0, 0.0);
+    glPopMatrix();
+    glMatrixMode(GL_MODELVIEW); */
+                                            /* Up       */
+   if (spincamera)
+      theta += (cameradirection * 0.2);
+
+   if(anothercam)
+        updownrotate+=cameradirection*0.2;
+
+}
+
+/*
+   Deal with plain key strokes
+*/
+void HandleKeyboard(unsigned char key,int x, int y)
+{
+   switch (key) {
+   case 27: /* ESC */
+   case 'Q':
+   case 'q': exit(0); break;
+   case 's':
+   case 'S': spincamera = !spincamera; break;
+   case 'm':
+   case 'M': ball = !ball; break;
+   case 'b':
+   case 'B': ballbounce = !ballbounce; break;
+   case 'o':
+   case 'O': zoom=zoom+5; glutPostRedisplay();break;
+   case 'i':
+   case 'I': zoom=zoom-5; glutPostRedisplay();break;
+   case 'n': a+=0.1; glutPostRedisplay(); break;
+   case 'f': a-=0.1; glutPostRedisplay(); break;
+   case 'u': b+=0.1; glutPostRedisplay(); break;
+   case 'd': b-=0.1; glutPostRedisplay(); break;
+   case 'r': c+=0.1; glutPostRedisplay(); break;
+   case 'l': c-=0.1; glutPostRedisplay(); break;
+
+
+  }
+}
+
+/*
+   Deal with special key strokes
+*/
+void HandleSpecialKeyboard(int key,int x, int y)
+{
+   switch (key) {
+   case GLUT_KEY_LEFT:  cameradirection = -1; break;
+   case GLUT_KEY_RIGHT: cameradirection = 1;  break;
+   case GLUT_KEY_UP:    updownrotate -= 2;  break;
+   case GLUT_KEY_DOWN:  updownrotate += 2;  break;
+   }
+}
+
+/*
+   Handle mouse events
+*/
+void HandleMouse(int button,int state,int x,int y)
+{
+   int i,maxselect = 100,nhits = 0;
+   GLuint selectlist[100];
+
+   if (state == GLUT_DOWN) {
+      glSelectBuffer(maxselect,selectlist);
+      glRenderMode(GL_SELECT);
+      glInitNames();
+      glPushName(-1);
+
+      glPushMatrix();
+      MakeCamera(TRUE,x,y);
+      MakeGeometry();
+      glPopMatrix();
+      nhits = glRenderMode(GL_RENDER);
+
+      if (button == GLUT_LEFT_BUTTON) {
+
+      } else if (button == GLUT_MIDDLE_BUTTON) {
+
+      } /* Right button events are passed to menu handlers */
+
+
+
+   }
+}
+
+/*
+   Handle the main menu
+*/
+void HandleMainMenu(int whichone)
+{
+   switch (whichone) {
+   case 1: spincamera = !spincamera; break;
+   case 2: ball = !ball; break;
+   case 3: anothercam = !anothercam; break;
+   case 100: exit(0); break;
+
+   }
+}
+
+/*
+   Handle the ball speed sub menu
+*/
+void HandleSpeedMenu(int whichone)
+{
+   switch (whichone) {
+   case 1: ballspeed = 2.0; break;
+   case 2: ballspeed = 5;   break;
+   case 3: ballspeed = 10;  break;
+   }
+}
+
+/*
+   How to handle visibility
+*/
+void HandleVisibility(int visible)
+{
+   if (visible == GLUT_VISIBLE)
+      glutIdleFunc(HandleIdle);
+   else
+      glutIdleFunc(NULL);
+}
+
+/*
+   What to do on an idle event
+*/
+void HandleIdle(void)
+{
+
+   glutPostRedisplay();
+}
