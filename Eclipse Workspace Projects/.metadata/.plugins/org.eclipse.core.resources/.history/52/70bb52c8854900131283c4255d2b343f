@@ -1,0 +1,26 @@
+
+public class String2Long {
+
+	public final static long parse(CharSequence d) {
+	    int l = d.length();
+	    boolean n= d.charAt(0) == '-';
+	    long v = 0;
+	    int p = n?1:0;
+	    do {
+	        v *= 10;
+	        int i = d.charAt(p) - 48;
+	        if (i < 0 | i > 9)
+	            throw new NumberFormatException(d+"");
+	        v += i;
+	        p++;
+	    } while (l > p);
+	    return n?-v:v ;
+	}
+	public static void main(String[] args) {
+		String s = "35";
+	    long ans = parse(s);
+	    System.out.println("String"+s+"in long is"+ans);
+
+	}
+
+}

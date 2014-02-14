@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 2 elements to &apos;Assignment2/src/progAss2&apos;&#x0D;&#x0A;- Original project: &apos;ProgAss2&apos;&#x0D;&#x0A;- Destination element: &apos;Assignment2/src/progAss2&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     progAss2.test2.java&#x0D;&#x0A;     progAss2.Custom.java" description="Copy compilation units" destination="=Assignment2/src&lt;progAss2" element1="/src&lt;progAss2{test2.java" element2="/src&lt;progAss2{Custom.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1366751441939" units="2" version="1.0"/>
+</session>

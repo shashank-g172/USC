@@ -1,0 +1,25 @@
+
+public class MissingElement {
+public int[] ARRAY= {1,2,4,5,6,7,10};
+
+public int findMin(int[])
+{
+	for(int i=0;i<100;i++)
+	{
+	 if(ARRAY[i] != 0)
+	     XOR ^= ARRAY[i];
+	 XOR ^= (i + 1);
+	}
+	return XOR;
+}
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		
+
+		// TODO Auto-generated method stub
+
+	}
+
+}

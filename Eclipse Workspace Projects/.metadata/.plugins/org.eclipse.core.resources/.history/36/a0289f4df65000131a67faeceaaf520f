@@ -1,0 +1,12 @@
+
+public class MissingElement {
+public int[] ARRAY= {1,2,4,5,6,7,10};
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

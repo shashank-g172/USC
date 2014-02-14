@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="C:/Users/Shashank/Downloads/eclipse-java-galileo-win32/eclipse/plugins/javax.servlet.jsp_2.0.0.v200806031607.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Shashank/Downloads/eclipse-java-galileo-win32/eclipse/plugins/javax.servlet_2.5.0.v200806031605.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Shashank/Downloads/eclipse-java-galileo-win32/eclipse/plugins/javax.xml.parsers-1_1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Shashank/Downloads/eclipse-java-galileo-win32/eclipse/plugins/javax.xml_1.3.4.v200902170245.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Shashank/Downloads/eclipse-java-galileo-win32/eclipse/plugins/jdom-2.0.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Shashank/Downloads/eclipse-java-galileo-win32/eclipse/plugins/jdom-2.0.4-contrib.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Shashank/Downloads/eclipse-java-galileo-win32/eclipse/plugins/jdom-2.0.4-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Shashank/Downloads/eclipse-java-galileo-win32/eclipse/plugins/jdom-2.0.4-junit.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Shashank/Downloads/eclipse-java-galileo-win32/eclipse/plugins/jdom-2.0.4-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Shashank/Downloads/eclipse-java-galileo-win32/eclipse/plugins/servlet-api-2.5.jar"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>

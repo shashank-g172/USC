@@ -1,0 +1,194 @@
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+
+public class TriNary {
+
+public static void main(String[] args) {
+new TriNary().run();
+}
+
+static class TriNode {
+TriNode left;
+TriNode middle;
+TriNode right;
+
+int value;
+
+public TriNode(int value) {
+this.value = value;
+}
+}
+
+private Map<Integer,String> triTreeLevels=new HashMap<Integer, String>();
+
+public void run() {
+// build the simple tree from chapter 11.
+TriNode root = new TriNode(50);
+System.out.println("Binary Tree Example");
+System.out.println("Building tree with root value " + root.value);
+insert(root, 25);
+insert(root, 30);
+insert(root, 10);
+insert(root, 100);
+insert(root, 190);
+insert(root, 80);
+insert(root, 89);
+insert(root, 75);
+insert(root, 150);
+insert(root, 200);
+insert(root, 125);
+insert(root, 175);
+insert(root, 999);
+deleteNode(root, 999);
+
+System.out.println("Traversing tree in order");
+printByOrder(root);
+
+System.out.println("Tree by levels");
+printByOrder(root);
+printByTreeLevels(root);
+
+deleteNode(root, 100);
+System.out.println("Deleting 100");
+System.out.println("Tree by levels");
+printByTreeLevels(root);
+
+deleteNode(root, 10);
+System.out.println("Deleting 10");
+System.out.println("Tree by levels");
+printByTreeLevels(root);
+
+deleteNode(root, 200);
+System.out.println("Deleting 200");
+System.out.println("Tree by levels");
+printByTreeLevels(root);
+
+}
+
+public void insert(TriNode node, int value) {
+if (value < node.value) {
+if (node.left != null) {
+insert(node.left, value);
+} else {
+System.out.println("  Inserted " + value + " to left of " + node.value);
+node.left = new TriNode(value);
+}
+} else if (value == node.value) {
+if(node.middle != null){
+insert(node.middle, value);
+}else{
+System.out.println("  Inserted " + value + " to middle of " + node.value);
+node.middle = new TriNode(value);
+}
+} else if (value > node.value) {
+if (node.right != null) {
+insert(node.right, value);
+} else {
+System.out.println("  Inserted " + value + " to right of " + node.value);
+node.right = new TriNode(value);
+}
+}
+}
+
+public void printByOrder(TriNode node) {
+//Prints the existing node and calls print on children
+if (node != null) {
+printByOrder(node.left);
+
+if(node.middle != null){
+printByOrder(node.middle);
+}
+
+System.out.println("  Traversed " + node.value);
+printByOrder(node.right);
+}
+}
+
+public void printByTreeLevels(TriNode node){
+//clear triTreeLevels from previous fills
+triTreeLevels.clear();
+loadTreeLevels(node, 0);
+displayTreeLevels();
+}
+
+public void loadTreeLevels(TriNode node, int level) {
+//Add current node to the specified level.
+if(triTreeLevels.get(level) != null)
+triTreeLevels.put(level, triTreeLevels.get(level) + node.value + " ");
+else
+triTreeLevels.put(level, node.value + " ");
+
+//This next section loads any existing children nodes in the next level
+if(node.left != null)
+loadTreeLevels(node.left, level+1);
+
+if(node.middle != null)
+loadTreeLevels(node.middle, level+1);
+
+if(node.right != null)
+loadTreeLevels(node.right, level+1);
+}
+
+public void displayTreeLevels() {
+//incremently print the levels of the tree
+for(int i = 0; i <  triTreeLevels.size(); i++){
+System.out.println(i+": "+triTreeLevels.get(i));
+}
+}
+
+public void deleteNode(TriNode node, int value) {
+if(node.value < value){
+deleteNode(node.right, value);
+}else if(node.value > value){
+deleteNode(node.left, value);
+}else{
+if(node.left == null && node.middle == null && node.right == null){
+//Node is a leaf, safe to remove
+node = null;
+}else if(node.middle != null){
+//Node contains a duplicate which will be used as it's spare
+node = node.middle;
+}else if(node.left != null && node.right == null){
+//Node only contains a left, so it's removed by being replaced with the left node
+node = node.left;
+}else if(node.left == null &&  node.middle == null && node.right != null){
+//Node only contains a right, so it's removed by being replaced with the right node
+node = node.right;
+}else{
+//At this point we lose the complexity of 3 children. If the deleted node had a duplicate it would have been replaced.
+if(node.right.left == null){
+//Right node doesn't have a left child
+
+//Right node inherits the left node as a left child
+node.right.left = node.left;
+//and replaces the current one
+node = node.right;
+}else{
+TriNode replacementNode;
+TriNode parentOfLowestNode = node.right;
+
+//Keep traversing until we find the lowest value on the left side
+while(parentOfLowestNode.left.left != null)
+parentOfLowestNode = parentOfLowestNode.left;
+
+//Replacement node will be the lowest value
+replacementNode = parentOfLowestNode.left;
+
+//lowest value is the node all the way to the left
+//it will be replaced with it's right child if it has one
+parentOfLowestNode.left = replacementNode.right;
+
+//Finish building the replacement node by supplying it's left and right children with those of the node to be deleted
+replacementNode.left = node.left;
+replacementNode.right = node.right;
+
+//replace the node to be deleted
+node = replacementNode;
+}
+}
+}
+}
+
+}

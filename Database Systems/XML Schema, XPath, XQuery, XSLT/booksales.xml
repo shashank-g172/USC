@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="booksales.xsl"?>
+<BookStore xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	
+<Authors>
+<Author>
+	<authorID>21f3</authorID>
+	<authName>
+		<FirstName>Garth</FirstName>
+		<MidName>M.</MidName>
+		<LastName>Shelton</LastName>
+	</authName>
+	<authEmail>gshelton@gmail.com</authEmail>
+	<authPhone>(470) 949-7859</authPhone>
+</Author>   
+<Author>
+	<authorID>14d3</authorID>
+	<authName>
+		<FirstName>Beverly</FirstName>
+		<LastName>Rich</LastName>
+	</authName>
+	<authEmail>beverly@deuce.net</authEmail>
+	<authPhone>(927) 407-2460</authPhone>
+</Author>
+<Author>
+	<authorID>44K5</authorID>
+	<authName>
+		<FirstName>Kibo</FirstName>
+		<MidName>X</MidName>
+		<LastName>Carver</LastName>
+	</authName>
+	<authEmail>carver@statichouse.com</authEmail>
+	<authPhone>(459) 376-6739</authPhone>
+</Author>
+<Author>
+	<authorID>31R3</authorID>
+	<authName>
+		<FirstName>Autumn</FirstName>
+		<MidName>Q</MidName>
+		<LastName>Blevins</LastName>
+	</authName>
+	<authEmail>aq@blevins.me</authEmail>
+	<authPhone>(996) 445-6213</authPhone>
+</Author>
+<Author>
+	<authorID>19j6</authorID>
+	<authName>
+		<FirstName>Amethyst</FirstName>
+		<MidName>D</MidName>
+		<LastName>Fernandez</LastName>
+	</authName>
+	<authEmail>ameth@deuce.net</authEmail>
+	<authPhone>(562) 559-8045</authPhone>
+</Author>
+</Authors>
+
+<Books>
+<Book>
+	<bookISBN>4756614025</bookISBN>
+	<bookName>A Tale of Three Towns</bookName>
+	<TotalID>
+		<ID>19j6</ID>
+	</TotalID>
+	<TotalBookFormat>
+		<bookFormats>
+			<bookFormat>eBook</bookFormat>
+			<bookMSRP>12.99</bookMSRP>
+		</bookFormats>
+		<bookFormats>
+			<bookFormat>Hardcover</bookFormat>
+			<bookMSRP>24.00</bookMSRP>
+		</bookFormats>
+	</TotalBookFormat>
+	<bookWeeksBSL>17</bookWeeksBSL>
+</Book>
+<Book>
+	<bookISBN>4051865467</bookISBN>
+	<bookName>Lord of the Crowns</bookName>
+	<TotalID>
+		<ID>14d3</ID>
+		<ID>19j6</ID>
+	</TotalID>
+	<TotalBookFormat>
+		<bookFormats>
+			<bookFormat>Hardcover</bookFormat>
+			<bookMSRP>36.82</bookMSRP>
+		</bookFormats>
+		<bookFormats>
+			<bookFormat>Paperback</bookFormat>
+			<bookMSRP>9.99</bookMSRP>
+		</bookFormats>
+	</TotalBookFormat>
+	<bookWeeksBSL>27</bookWeeksBSL>
+</Book>
+<Book>
+	<bookISBN>203387034X</bookISBN>
+	<bookName>Of Cats and Men</bookName>
+	<TotalID>
+		<ID>44K5</ID>
+	</TotalID>
+	<TotalBookFormat>
+		<bookFormats>
+			<bookFormat>eBook</bookFormat>
+			<bookMSRP>4.99</bookMSRP>
+		</bookFormats>
+		<bookFormats>
+			<bookFormat>Hardcover</bookFormat>
+			<bookMSRP>26.49</bookMSRP>
+		</bookFormats>
+		<bookFormats>
+			<bookFormat>Paperback</bookFormat>
+			<bookMSRP>9.78</bookMSRP>
+		</bookFormats>
+	</TotalBookFormat>
+	<bookWeeksBSL>52</bookWeeksBSL>
+</Book>
+<Book>
+	<bookISBN>8496346865</bookISBN>
+	<bookName>MacCharles</bookName>
+	<TotalID>
+		<ID>21f3</ID>
+	</TotalID>
+	<TotalBookFormat>
+		<bookFormats>
+			<bookFormat>eBook</bookFormat>
+			<bookMSRP>8.99</bookMSRP>
+		</bookFormats>
+		<bookFormats>
+			<bookFormat>Hardcover</bookFormat>
+			<bookMSRP>32.64</bookMSRP>
+		</bookFormats>
+	</TotalBookFormat>
+	
+</Book>
+<Book>
+	<bookISBN>1965685024</bookISBN>
+	<bookName>Oliver Straight</bookName>
+	<TotalID>
+		<ID>14d3</ID>
+	</TotalID>
+	<TotalBookFormat>
+		<bookFormats>
+			<bookFormat>Paperback</bookFormat>
+			<bookMSRP>8.99</bookMSRP>
+		</bookFormats>
+	</TotalBookFormat>
+	<bookWeeksBSL>16</bookWeeksBSL>
+</Book>
+<Book>
+	<bookISBN>2031825889</bookISBN>
+	<bookName>The Four Knights</bookName>
+	<TotalID>
+		<ID>21f3</ID>
+		<ID>31R3</ID>
+	</TotalID>
+	<TotalBookFormat>
+		<bookFormats>
+			<bookFormat>Hardcover</bookFormat>
+			<bookMSRP>22.73</bookMSRP>
+		</bookFormats>
+	</TotalBookFormat>
+	<bookWeeksBSL>3</bookWeeksBSL>
+</Book>
+<Book>
+	<bookISBN>8020040696</bookISBN>
+	<bookName>Paradise Found</bookName>
+	<TotalID>
+		<ID>44K5</ID>
+		<ID>31R3</ID>
+	</TotalID>
+	<TotalBookFormat>
+		<bookFormats>
+			<bookFormat>Paperback</bookFormat>
+			<bookMSRP>8.99</bookMSRP>
+		</bookFormats>
+		<bookFormats>
+			<bookFormat>Hardcover</bookFormat>
+			<bookMSRP>25.00</bookMSRP>
+		</bookFormats>
+	</TotalBookFormat>
+	<bookWeeksBSL>39</bookWeeksBSL>
+</Book>
+<Book>
+	<bookISBN>820778283X</bookISBN>
+	<bookName>Twenty Shades of Cardinal</bookName>
+	<TotalID>
+		<ID>31R3</ID>
+	</TotalID>
+	<TotalBookFormat>
+		<bookFormats>
+			<bookFormat>eBook</bookFormat>
+			<bookMSRP>6.49</bookMSRP>
+		</bookFormats>
+	</TotalBookFormat>
+</Book>
+</Books>
+<SalesInfo>
+<Sale>
+	<bookISBN>203387034X</bookISBN>
+	<BookSales>
+		<Everything>
+			<bookFormat>eBook</bookFormat>
+			<sales>
+				<Retailer>Amazon</Retailer>
+				<Price>2.48</Price>
+				<UnitsSold>200</UnitsSold>
+			</sales>
+			<sales>	
+				<Retailer>BN</Retailer>
+				<Price>4.49</Price>
+				<UnitsSold>173</UnitsSold>
+			</sales>
+		</Everything>
+		<Everything>
+			<bookFormat>Hardcover</bookFormat>
+			<sales>
+				<Retailer>Amazon</Retailer>
+				<Price>24.99</Price>
+				<UnitsSold>307</UnitsSold>
+			</sales>
+			<sales>
+				<Retailer>Vromans</Retailer>
+				<Price>24.99</Price>
+				<UnitsSold>339</UnitsSold>
+			</sales>
+		</Everything>
+	</BookSales>
+</Sale>
+<Sale>
+	<bookISBN>820778283X</bookISBN>
+	<BookSales>
+		<Everything>
+			<bookFormat>eBook</bookFormat>
+			<sales>
+				<Retailer>BN</Retailer>
+				<Price>3.25</Price>
+				<UnitsSold>254</UnitsSold>
+			</sales>
+			<sales>
+				<Retailer>Amazon</Retailer>
+				<Price>5.00</Price>
+				<UnitsSold>136</UnitsSold>
+			</sales>
+		</Everything>
+	</BookSales>
+</Sale>
+<Sale>
+	<bookISBN>4756614025</bookISBN>
+	<BookSales>
+		<Everything>
+			<bookFormat>eBook</bookFormat>
+			<sales>
+				<Retailer>Amazon</Retailer>
+				<Price>7.99</Price>
+				<UnitsSold>162</UnitsSold>
+			</sales>
+		</Everything>
+		<Everything>
+			<bookFormat>Hardcover</bookFormat>
+			<sales>
+				<Retailer>Vromans</Retailer>
+				<Price>16.74</Price>
+				<UnitsSold>329</UnitsSold>
+			</sales>
+		</Everything>
+	</BookSales>
+</Sale>
+<Sale>
+	<bookISBN>1965685024</bookISBN>
+	<BookSales>
+		<Everything>
+			<bookFormat>Paperback</bookFormat>
+			<sales>
+				<Retailer>Amazon</Retailer>
+				<Price>6.98</Price>
+				<UnitsSold>73</UnitsSold>
+			</sales>
+			<sales>
+				<Retailer>BN</Retailer>
+				<Price>6.99</Price>
+				<UnitsSold>93</UnitsSold>
+			</sales>
+			<sales>
+				<Retailer>Vromans</Retailer>
+				<Price>3.99</Price>
+				<UnitsSold>200</UnitsSold>
+			</sales>
+		</Everything>
+		</BookSales>
+</Sale>
+<Sale>
+	<bookISBN>4051865467</bookISBN>
+	<BookSales>
+		<Everything>
+			<bookFormat>Hardcover</bookFormat>
+			<sales>
+				<Retailer>Vromans</Retailer>
+				<Price>36.82</Price>
+				<UnitsSold>135</UnitsSold>
+			</sales>
+			<sales>
+				<Retailer>Amazon</Retailer>
+				<Price>32.44</Price>
+				<UnitsSold>164</UnitsSold>
+			</sales>
+		</Everything>
+		<Everything>
+			<bookFormat>Paperback</bookFormat>
+			<sales>
+				<Retailer>Amazon</Retailer>
+				<Price>8.99</Price>
+				<UnitsSold>156</UnitsSold>
+			</sales>
+			<sales>
+				<Retailer>BN</Retailer>
+				<Price>3.26</Price>
+				<UnitsSold>296</UnitsSold>
+			</sales>
+		</Everything>
+	</BookSales>
+</Sale>
+<Sale>
+	<bookISBN>8496346865</bookISBN>
+	<BookSales>
+		<Everything>
+			<bookFormat>Hardcover</bookFormat>
+			<sales>
+				<Retailer>Vromans</Retailer>
+				<Price>29.99</Price>
+				<UnitsSold>63</UnitsSold>
+			</sales>
+		</Everything>
+	</BookSales>
+</Sale>
+<Sale>
+	<bookISBN>8020040696</bookISBN>
+	<BookSales>
+		<Everything>
+			<bookFormat>Hardcover</bookFormat>
+			<sales>
+				<Retailer>Vromans</Retailer>
+				<Price>24.99</Price>
+				<UnitsSold>273</UnitsSold>
+			</sales>
+			<sales>
+				<Retailer>BN</Retailer>
+				<Price>21.49</Price>
+				<UnitsSold>394</UnitsSold>
+			</sales>
+		</Everything>
+		<Everything>
+			<bookFormat>Paperback</bookFormat>
+			<sales>
+				<Retailer>Amazon</Retailer>
+				<Price>8.99</Price>
+				<UnitsSold>194</UnitsSold>
+			</sales>
+			<sales>
+				<Retailer>BN</Retailer>
+				<Price>7.99</Price>
+				<UnitsSold>97</UnitsSold>
+			</sales>
+		</Everything>
+	</BookSales>
+</Sale>
+</SalesInfo>
+</BookStore>
+
