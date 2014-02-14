@@ -1,0 +1,6 @@
+README
+
+Usage
+1) make ------------ Create all the .o files
+2) make warmup2----- Create the warmup2 executable
+3) make clean------- Remove all the .o files and warmup2

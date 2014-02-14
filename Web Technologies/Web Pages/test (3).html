@@ -1,0 +1,89 @@
+
+<html>
+<head>
+<title>Music Search</title>
+<style type="text/css">
+body { 
+	font-family:Arial, sans-serif;
+}
+label { 
+	width:200px;
+	font-family:Arial, sans-serif;
+}
+
+img { 
+	width:118px;
+	height:176px;
+	display:table-cell;
+}
+
+td, th { 
+	text-align:center;
+	padding:10px;
+}
+
+td.image { 
+	padding:0px;
+}
+
+label { 
+	width:150px;
+	float:left;
+	font-face: Arial;
+	font-weight:500;
+}
+
+input[type="text"] { 
+	width:200px; 
+}
+
+input[type="submit"] { 
+	margin-left:300px;
+}
+
+form { 
+	margin:0 auto;
+	padding:10px;
+	display:table;
+}
+
+</style>
+<script type="text/javascript">
+function validate() { 
+		var check = document.musicSearchForm.musicQuery.value.replace(/^\s+|\s+$/g, '');
+		
+		if(check === "") {
+		alert("Please enter something in the search box");
+		return false;
+		}
+		else return true;
+}
+
+
+
+</script>
+
+</head>
+<body>
+<form action="http://cs-server.usc.edu:22279/test.php" name="musicSearchForm" method="GET" onSubmit="return validate();">
+	<h1 style="text-align:center;">Discography Search</h1>
+	<fieldset>
+	<p>
+	<label for="musicQuery">Search: </label><input id="musicQuery" type="text" name="musicQuery" value="">
+	</p>
+	<p>
+	<label for="musicType">Type: </label>
+	<select name="musicType">
+		<option  value="artists">Artists</option>
+		<option  value="albums">Albums</option>
+		<option  value="songs">Songs</option>
+	</select>
+	</p>
+	<p>
+	<input class="submit" type="submit">
+	</p>
+	</fieldset>
+</form>
+</body>
+
+</html>

@@ -1,0 +1,116 @@
+.icons
+{
+display: block;
+width: 100px;
+height: 100px;
+background-image: url(http://www.allmusic.com/assets/images/sprite-no-image.png);
+background-repeat: no-repeat;
+}
+.icon_1
+{
+background-position: 0px -700px;
+}
+.icon_2
+{
+background-position: -300px -700px;
+}
+.icon_3
+{
+background-position: -100px -700px;
+}
+.icon_4
+{
+background-position: -100px 0px;
+}
+.text {
+    position:relative;
+    font: normal 11px auto Verdana, Arial, Helvetica, sans-serif;
+    top:40px;
+}
+
+
+div.center-cropped {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    overflow: hidden;
+    background-color: white;
+}
+div.resize {
+	width: 100px;
+    height: 100px;
+    background-size:100px 100px;
+}
+.aligncenter{
+	text-align:center;
+}
+
+body {
+	font: normal 11px auto "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+	color: #4f6b72;
+	background: #E6EAE9;
+}
+
+a {
+	color: #c75f3e;
+}
+
+
+th {
+	font: bold 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+	color: #4f6b72;
+	border-right: 1px solid #C1DAD7;
+	border-bottom: 1px solid #C1DAD7;
+	border-top: 1px solid #C1DAD7;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	text-align: center;
+	padding: 6px 6px 6px 12px;
+	background: #CAE8EA;
+}
+
+td.style1 {
+	border-right: 1px solid #C1DAD7;
+	border-bottom: 1px solid #C1DAD7;
+	background: #fff;
+	color: #4f6b72;
+	text-align: center;
+}
+
+
+.alt {
+	background: #F5FAFA;
+	color: #797268;
+}
+
+.formclass{
+background: -webkit-gradient(linear, bottom, left 175px, from(#CAE8EA), to(#CAE8EA));
+background: -moz-linear-gradient(bottom, #CAE8EA, #CAE8EA 175px);
+margin:auto;
+position:relative;
+width:400px;
+height:150px;
+font-family: Tahoma, Geneva, sans-serif;
+font-size: 14px;
+font-style: italic;
+line-height: 24px;
+font-weight: bold;
+color: #09C;
+text-decoration: none;
+-webkit-border-radius: 10px;
+-moz-border-radius: 10px;
+border-radius: 10px;
+padding:10px;
+border: 1px solid #999;
+border: inset 1px solid #333;
+-webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+-moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+}
+
+table{
+	border-collapse:separate;
+    
+    border-radius:6px;
+    -moz-border-radius:6px;
+}

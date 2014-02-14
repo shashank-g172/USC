@@ -1,0 +1,403 @@
+<html>
+<head>
+<title>Music Search</title>
+<style type="text/css">
+label { 
+	width:200px;
+	font-family:Arial, sans-serif;
+}
+
+img { 
+	width:118px;
+	height:176px;
+	display:table-cell;
+}
+
+td, th { 
+	text-align:center;
+	padding:10px;
+}
+
+td.image { 
+	padding:0px;
+}
+
+label { 
+	width:150px;
+	float:left;
+	font-face: Arial;
+	font-weight:500;
+}
+
+input[type="text"] { 
+	width:200px; 
+}
+
+input[type="submit"] { 
+	margin-left:300px;
+}
+
+form { 
+	margin:0 auto;
+	padding:10px;
+	display:table;
+}
+ .auto-style1 {
+                width: 122px;
+            }
+            #sel {
+                width: 119px;
+                margin-left: 0px;
+            }
+</style>
+<script type="text/javascript">
+ var xm = XMLHttpRequest();
+
+            function checkerfunc() {
+                 var x = document.getElementById("musicQuery").value;
+                if (x != "") {
+                    return true;
+                }
+                else {
+                    alert("Please enter something in the search box");
+                    return false;
+                }
+            }
+
+            function start() {
+                //alert("In start");
+                if (checkerfunc()) {
+                    var img = "<img src=\"ajax-loader.jpg\"/>";
+                    document.getElementById("dynamic").innerHTML = img;
+                    var url = "http://cs-server.usc.edu:22280/examples/servlet/HelloWorldExample?musicQuery=" + document.getElementById("musicQuery").value;
+                    url += "&musicType=" + document.getElementById("musicType").value;
+                    xm.open("GET", url, true);
+                    
+                    xm.onreadystatechange = output;
+                    xm.send("");
+                    //alert(xm.responseText);
+                }
+                
+	            }
+
+            function output() {
+            	 var html_text = null;
+              if (xm.readyState == 4 ) {
+                      if (xm.status == 200) {
+
+                         //if(xm.responseText)
+                         //alert(xm.responseText); 
+                         var data = eval('(' + xm.responseText + ')');
+
+                         //alert(xm.responseText); 
+                          //document.getElementById("dynamic").innerHTML = xm.responseText;
+                          //document.write("xm.responseText")
+                          
+                         /* if (data.results.exception.length > 0) {
+                              document.getElementById("dynamic").innerHTML = data.results.exception[0].error;
+                              return;
+                          } */
+                      
+                  
+              
+                         
+                          html_text = "<h2>Results for " + document.getElementById("musicQuery").value;
+                          html_text += " of type " + document.getElementById("musicType").value + "</h2><br />";
+                          
+                          if (data.results.result.length > 0) {
+                              
+                              if(document.getElementById("musicType").value=="artists")
+								            {
+									             html_text += "<table border=1 align=\"center\">";
+                              
+                              html_text += "<tr align=\"center\"><th>Image</th><th>Name</th><th>Genre</th><th>Year(s)</th>";
+                              html_text += "<th>Details</th><th> post on Facebook</th></tr>\n";
+
+                              for (i = 0; i < data.results.result.length; i++) {
+                                  html_text += "<tr align=\"center\">";
+                                  var cover = data.results.result[i].cover;
+                                  
+
+                                  html_text += "<td><img src=\"" + cover + "\" height=\"100\" width=\"75\"></img></td>\n";
+
+                                  var name = data.results.result[i].name;
+                                  html_text += "<td>" + name + " </td>\n";
+
+                                  var genre = data.results.result[i].genre;
+                                  html_text += "<td>" + genre + "</td>\n";
+
+
+                                  var year = data.results.result[i].year;
+                                  html_text += "<td> " + year + " </td>\n";
+
+                                  var details = data.results.result[i].details;
+                                  html_text += "<td><a href=\"" + details + "\">details</a></td>";
+
+                                  html_text += "<td><input type=\"image\" src=\"f_logo.jpg\" width=\"60\"height=\"60\" onclick=\"postToFeedArtists(";
+                                  html_text += "'"+cover+ "',";
+                                  html_text += "'"+name + "',";
+                                  html_text += "'"+genre + "',";
+                                  html_text += "'"+year + "',";
+                                  html_text += "'"+details + "')\" /></td></tr>\n";
+								
+                              }
+
+                              html_text += "</table>";
+                             } 
+                             if(document.getElementById("musicType").value=="albums")
+								{
+									         html_text += "<table border=1 align=\"center\">";
+                              
+                              html_text += "<tr align=\"center\"><th>Cover</th><th>Title</th><th>Artist</th><th>Genre</th><th>Year(s)</th>";
+                              html_text += "<th> post on Facebook</th></tr>\n";
+
+                              for (i = 0; i < data.results.result.length; i++) {
+                                   html_text += "<tr align=\"center\">";
+                                  var cover = data.results.result[i].cover;
+                                  html_text += "<td><img src=\"" + cover + "\" height=\"100\" width=\"75\"></img></td>\n";
+
+                                
+                                  var title = data.results.result[i].title;
+                                  html_text += "<td>" + title + "</td>\n";
+
+                                  var artist = data.results.result[i].artist;
+                                  html_text += "<td>" + artist + " </td>\n";
+
+                                  var genre = data.results.result[i].genre;
+                                  html_text += "<td>" + genre + "</td>\n";
+
+
+                                  var year = data.results.result[i].year;
+                                  html_text += "<td> " + year + " </td>\n";
+
+                                 
+
+                                  html_text += "<td><input type=\"image\" src=\"f_logo.jpg\" width=\"60\"height=\"60\" onclick=\"postToFeedAlbums(";
+                                  html_text+= "'"+title + "'";
+                                  //html_text += "'"+Image + "',";
+                                  html_text += "'"+artist + "',";
+                                  html_text += "'"+genre + "',";
+                                  html_text += "'"+year + "',";
+                                  html_text += "'"+details + "')\" /></td></tr>\n";
+								
+                              }
+
+                              html_text += "</table>";
+                             } 
+                             if(document.getElementById("musicType").value=="songs")
+								{
+									html_text += "<table border=1 align=\"center\">";
+                              
+                              html_text += "<tr align=\"center\"><th>Sample</th><th>Title</th><th>Performer</th><th>Composer(s)</th>";
+                              html_text += "<th>Details</th><th> post on Facebook</th></tr>\n";
+
+                              for (i = 0; i < data.results.result.length; i++) {
+                                  html_text += "<tr align=\"center\">";
+                                  
+                                  var sample = data.results.result[i].sample;
+
+                                  html_text += "<td><img src=\"" + sample + "\" height=\"100\" width=\"75\"></img></td>\n";
+
+                                  var title = data.results.result[i].title;
+                                  html_text += "<td>" + title + " </td>\n";
+
+                                  var Performer = data.results.result[i].Performer;
+                                  html_text += "<td>" + Performer + "</td>\n";
+
+
+                                  var Composer = data.results.result[i].Composer;
+                                  html_text += "<td> " + Composer + " </td>\n";
+
+                                  var Details = data.results.result[i].Details;
+                                  html_text += "<td><a href=\"" + Details + "\">details</a></td>";
+
+                                  html_text += "<td><input type=\"image\" src=\"f_logo.jpg\" width=\"60\"height=\"60\" onclick=\"postToFeedSongs(";
+                                  html_text += "'"+sample + "',";
+                                  html_text += "'"+title + "',";
+                                  html_text += "'"+Performer + "',";
+                                  html_text += "'"+Composer + "',";
+                                  html_text += "'"+Details + "')\" /></td></tr>\n";
+								
+                              }
+
+                              html_text += "</table>";
+                              } 
+                           }
+                           else {
+                               html_text = "No Results found!";
+
+                           }
+
+
+                          document.getElementById("dynamic").innerHTML = html_text;
+                          return false; 
+                    }
+                }
+           }
+
+
+</head>
+<body>
+  <script>
+    window.fbAsyncInit = function () {
+        // init the FB JS SDK
+        FB.init({
+            appId: '356651771112469', // App ID from the App Dashboard
+            channelUrl: 'http://cs-server.usc.edu:22280/examples/servlets/homework8.html', // Channel File for x-domain communication
+            status: true, // check the login status upon init?
+            cookie: true, // set sessions cookies to allow your server to access the session?
+            xfbml: true  // parse XFBML tags on this page?
+        });
+
+
+        // Additional initialization code such as adding Event Listeners goes here
+        FB.getLoginStatus(function (response) {
+            if (response.status === 'connected') {
+                // connected
+            } else if (response.status === 'not_authorized') {
+                // not_authorized
+            } else {
+                // not_logged_in
+            }
+        });
+    };
+
+    function login() {
+        FB.login(function (response) {
+            if (response.authResponse) {
+                // connected
+            } else {
+                // cancelled
+            }
+        });
+    }
+function postToFeedAlbums(title, artist, year, genre, details) {
+  var cover = doc.results.result[selectedEntry].cover;
+  if(cover == "N/A") {
+    cover = "http://cs-server.usc.edu:22279/AwesomeNess.png";
+  }
+  var obj = {
+    method: 'feed',
+    link: details,
+    picture: cover,
+    name: name,
+    caption: "I like "+title+" released in "+year,
+    description: "Artist : "+artist+" & Genre : "+genre,
+    properties:{
+      "Look at details":{text:"here","href":details}
+    }
+  };
+
+  function callback(response) {
+    if (response && response.post_id) {
+    alert('Post was published.');
+    } else {
+    alert('Post was not published.');
+    }
+  }
+
+  FB.ui(obj, callback);
+}
+
+function postToFeedSongs(sample, title, Performer, Composer, Details) {
+      if(sample == "N/A") {
+      var sample = "http://cs-server.usc.edu:22279/AwesomeNess3.png";
+    } else {
+      var sample = "http://cs-server.usc.edu:22279/AwesomeNess3.png";
+    } 
+  
+  if(composer == "N/A") {
+    caption = "";
+  } else {
+    caption = " composed by "+Composer;
+  }
+  
+  
+  var obj = {
+    method: 'feed',
+    link: Details,
+    picture: sample,
+    name: title,
+    caption: "I like "+title+" "+caption,
+    description: "Performer : "+Performer,
+    properties:{
+      "Look at details":{text:"here","href":Details}
+    }
+  };
+
+  function callback(response) {
+    if (response && response.post_id) {
+    alert('Post was published.');
+    } else {
+    alert('Post was not published.');
+    }
+  }
+
+  FB.ui(obj, callback);
+}
+
+    function postToFeedArtists(cover, name, genre, year, details) {
+
+        // calling the API ...
+        var obj = {
+            method: 'feed',
+            link: details,
+            picture: cover,
+            name: name,
+            caption: "I like "+name+" who is active since "+year,
+    description: "Genre of Music is : "+genre,
+    properties:{
+      "Look at details":{text:"here","href":details}
+    }
+  };
+
+       function callback(response) {
+    if (response && response.post_id) {
+    alert('Post was published.');
+    } else {
+    alert('Post was not published.');
+    }
+  }
+
+  FB.ui(obj, callback);
+}
+
+    // Load the SDK's source Asynchronously
+    (function (d, debug) {
+        var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+        if (d.getElementById(id)) { return; }
+        js = d.createElement('script'); js.id = id; js.async = true;
+        js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
+        ref.parentNode.insertBefore(js, ref);
+    }(document, /*debug*/ false));
+    </script>
+         <script src="//connect.facebook.net/en_US/all.js"></script>
+
+
+  <div align="center">
+ <h2>Discography Search</h2>
+<form method="get" id="musicSearchForm" onsubmit="return false">
+                <table border="0">
+                <tr><td >Search:</td>
+ <td><input id="musicQuery" type="text" name="search" /></td>
+                    </tr>
+                    <tr><td>Type</td>
+                        <td><select name="" id="musicType">
+                            <option selected="selected" value="artists">Artists</option>
+                            <option value="albums">Albums</option>
+                            <option value="songs">Songs</option>
+                            
+                            </select></td>
+
+                    </tr>
+
+                </table>
+				                
+                <input type="submit" value="SEARCH" onclick="start()" />
+            </form>
+        </div>
+        <br />
+<div id="dynamic" align="center"></div>
+</body>
+
+</html>

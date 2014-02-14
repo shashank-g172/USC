@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC"-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:fb="https://www.facebook.com/2008/fbml">
+<html> 
+<head>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title></title>
+<script src='http://connect.facebook.net/en_US/all.js'></script>
+<script type="text/javascript">
+
+FB.init({appId: "294198117377376", status: true, cookie: true});
+var xhr = false;
+function validate(u)
+{
+if(u.value=="")
+{
+	alert("Search cannot be empty");
+	return false;
+}
+
+var name = document.getElementById("URL").value;
+e = document.getElementById("type");
+type = e.options[e.selectedIndex].value;
+
+ var regx = new RegExp('&', 'g');
+ name=name.replace(regx,"%26");
+
+var url = "http://cs-server.usc.edu:37769/examples/servlet/RequestParamExample?URL=" + name + "&type=" + type;
+makeRequest(url);
+}
+
+function makeRequest(url) 
+{
+	if (window.XMLHttpRequest) 
+	{ 
+		xhr = new XMLHttpRequest();
+	}
+	else 
+	{ 
+		if (window.ActiveXObject) 
+		{
+			try 
+			{ 
+				xhr = new ActiveXObject("Microsoft.XMLHTTP"); 
+			}
+			catch (e) 
+			{ }
+		} 
+	}
+	if (xhr) 
+	{ 
+		xhr.onreadystatechange = showContents;
+		xhr.open("GET", url, true); 
+		xhr.send(null); 
+	}
+	else 
+	{ 
+		document.getElementById("updateArea").innerHTML = "Sorry, but I couldn't create an XMLHttpRequest"; 
+	} 
+}
+
+function showContents() 
+{
+	if (xhr.readyState == 4) 
+	{
+		if (xhr.status == 200) 
+		{
+			outMsg="";
+			
+			if(xhr.responseText != "")
+			{
+			var out = eval('('+xhr.responseText+')');
+			var root=out.results.result;
+			
+			var name = document.getElementById("URL").value;
+			outMsg+="<div style='margin-top:10px;'><h3>Displaying " + root.length + " results for " + name + "</h3></div>";
+			outMsg+="<table border=1>";
+			if(type=="artists")
+			{
+				outMsg+="<tr>";
+				outMsg+="<td>Cover</td>";
+				outMsg+="<td>Name</td>";
+				outMsg+="<td>Genre(s)</td>";
+				outMsg+="<td>Year(s)</td>";
+				outMsg+="<td>Details</td>";
+				outMsg+="<td>Post to Facebook</td>";
+				outMsg+="</tr>";
+			}
+			else if(type=="albums")
+			{
+				outMsg+="<tr>";
+				outMsg+="<td>Cover</td>";
+				outMsg+="<td>Title</td>";
+				outMsg+="<td>Artist</td>";
+				outMsg+="<td>Genre(s)</td>";
+				outMsg+="<td>Year(s)</td>";
+				outMsg+="<td>Details</td>";
+				outMsg+="<td>Post to Facebook</td>";
+				outMsg+="</tr>";
+			}
+			else if(type=="songs")
+			{
+				outMsg+="<tr>";
+				outMsg+="<td>Sample</td>";
+				outMsg+="<td>Title</td>";
+				outMsg+="<td>Performer</td>";
+				outMsg+="<td>Composer</td>";
+				outMsg+="<td>Details</td>";
+				outMsg+="<td>Post to Facebook</td>";
+				outMsg+="</tr>";
+			}
+			for(var i=0;i<root.length;i++)
+			{
+				var result=root[i];
+				if(type=="artists")
+				{
+					outMsg+="<tr>";
+					outMsg+= "<td><img src='" + result.cover + "' height='100px' width='100px'></td>";
+					outMsg+="<td>"+result.name+"</td>";
+					outMsg+="<td>"+result.genre+"</td>";
+					outMsg+="<td>"+result.year+"</td>";
+					outMsg+="<td><a href='"+result.details+"'>Details</a></td>";
+					var obj1 = "{'method':'feed', 'link':'"+result.details+"', 'picture':'"+result.cover+"', 'name':'"+result.name+"', 'caption':'"+result.name+"', 'description':'I like "+result.name+" who is active since "+result.year+". Genre of Music is "+result.genre+"', 'properties':{'Look at details':{'text':'here', 'href':'"+result.details+"'}}}";
+					outMsg+="<td align='center'><a onclick=\"FB.ui("+obj1+");\"><img src='facebook_logo.jpg' height=25px width=100px></td>";
+					outMsg+="</tr>";
+				}
+				else if(type=="albums")
+				{
+					outMsg+="<tr>";
+					outMsg+= "<td><img src='" + result.cover + "' height='100px' width='100px'></td>";
+					outMsg+="<td>"+result.title+"</td>";
+					outMsg+="<td>"+result.artist+"</td>";
+					outMsg+="<td>"+result.genre+"</td>";
+					outMsg+="<td>"+result.year+"</td>";
+					outMsg+="<td><a href='"+result.details+"'>Details</a></td>";
+					var obj1 = "{'method':'feed', 'link':'"+result.details+"', 'picture':'"+result.cover+"', 'name':'"+result.title+"', 'caption':'"+result.title+"', 'description':'I like "+result.title+" released in "+result.year+". Artist: "+result.artist+" Genre: "+result.genre+"', 'properties':{'Look at details':{'text':'here', 'href':'"+result.details+"'}}}";
+					outMsg+="<td align='center'><a onclick=\"FB.ui("+obj1+");\"><img src='facebook_logo.jpg' height=25px width=100px></td>";
+					outMsg+="</tr>";
+				}
+				else if(type=="songs")
+				{
+					outMsg+="<tr>";
+					outMsg+= "<td><a href='" + result.link + "'><img src='http://cs-server.usc.edu:37769/examples/servlets/songs.png' height='100px' width='100px'></a></td>";
+					outMsg+="<td>"+result.title+"</td>";
+					outMsg+="<td>"+result.performer+"</td>";
+					outMsg+="<td>"+result.composer+"</td>";
+					outMsg+="<td><a href='"+result.details+"'>Details</a></td>";
+					var obj1 = "{'method':'feed', 'link':'"+result.details+"', 'picture':'http://cs-server.usc.edu:37769/examples/servlets/songs.png', 'name':'"+result.title+"', 'caption':'"+result.title+"', 'description':'I like "+result.title+" composed by "+result.composer+". Performer: "+result.performer+"', 'properties':{'Look at details':{'text':'here', 'href':'"+result.details+"'}}}";
+					outMsg+="<td align='center'><a onclick=\"FB.ui("+obj1+");\"><img src='facebook_logo.jpg' height=25px width=100px></td>";
+					outMsg+="</tr>";
+				}
+				
+			}
+			outMsg+="</table>";
+			}
+			else
+			{
+			outMsg+="No Discography Found !";
+			}
+		} 
+		else 
+		{ 
+			var outMsg = "There was a problem with the request " + xhr.status; 
+		}
+		document.getElementById("updateArea").innerHTML = outMsg; 
+	} 
+}
+</script>
+
+</head>
+<body>
+	<center>
+	<div id='fb-root'></div>
+    
+	
+	<div style = "margin-top:0px;">
+	<h1>Discography Search<br></h1>
+	<form name="myform" method="POST" id="location">
+    Search:		<input type="text" name="URL" id="URL" maxlength="255" size="40" /><br>
+	Type:		<select name="type" id="type" maxlength="255">
+				<option value="artists" selected>Artists</option>
+				<option value="albums">Albums</option>
+				<option value="songs">Songs</option>
+				</select>
+  
+	<input type="button" name="search" value="Search" onclick="return validate(URL)" /><br>
+	</form>
+	</div>
+	<div id="updateArea"></div>
+	</center>
+<noscript>
+</body>
+</html>

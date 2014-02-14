@@ -1,0 +1,197 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 TRansitional//EN" "http://www.w3.org/TR/html4/loose.dTD">
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <title> Assignment 8</title>
+        <script language="javascript" type="text/javascript">
+
+            var xm = XMLHttpRequest();
+
+            function check() {
+                var x = document.getElementById("mov").value;
+                if (x != "") {
+                    return true;
+                }
+                else {
+                    alert("Please enter a title");
+                    return false;
+                }
+            }
+
+            function start() {
+                if (check()) {
+                    var img = "<img src=\"ajax-loader.gif\"/>";
+                    document.getElementById("dynamic").innerHTML = img;
+                    var url = "http://cs-server.usc.edu:37863/examples/servlet/HelloWorldExample?movie=" + document.getElementById("mov").value;
+                    url += "&type=" + document.getElementById("sel").value;
+                    xm.open("GET", url, true);
+                    xm.onreadystatechange = output;
+                    xm.send(null);
+                }
+                
+            }
+
+            function output() {
+              if (xm.readyState == 4) {
+                      if (xm.status == 200) {
+
+                         // document.getElementById("dynamic").innerHTML = xm.responseText;
+                          var data = eval('(' + xm.responseText + ')');
+                          
+                          if (data.results.exception.length > 0) {
+                              document.getElementById("dynamic").innerHTML = data.results.exception[0].error;
+                              return;
+                          }
+
+                          var html_text = null;
+                          html_text = "<h2>Results for " + document.getElementById("mov").value;
+                          html_text += " of type " + document.getElementById("sel").value + "</h2><br />";
+
+                          if (data.results.result.length > 0) {
+                              html_text += "<table border=1 align=\"center\">";
+                              html_text += "<tr align=\"center\"><th>Image</th><th>Title</th><th>Year</th><th>Director(s)</th>";
+                              html_text += "<th>Ratings<br>(10)</th><th>Link to result</th><th> post on Facebook</th></tr>\n";
+
+                              for (i = 0; i < data.results.result.length; i++) {
+                                  html_text += "<tr align=\"center\">";
+                                  var cover = data.results.result[i].cover;
+                                  html_text += "<td><img src=\"" + cover + "\" height=\"100\" width=\"75\"></img></td>\n";
+
+                                  var title = data.results.result[i].title;
+                                  html_text += "<td>" + title + " </td>\n";
+
+                                  var year = data.results.result[i].year;
+                                  html_text += "<td>" + year + "</td>\n";
+
+                                  html_text += "<td>" + data.results.result[i].director + " </td>\n";
+
+                                  var rating = data.results.result[i].rating;
+                                  html_text += "<td> " + rating + " </td>\n";
+
+                                  var details = data.results.result[i].details;
+                                  html_text += "<td><a href=\"" + details + "\">details</a></td>";
+
+                                  html_text += "<td><input type=\"image\" src=\"f_logo.jpg\" width=\"40\"height=\"40\" onclick=\"postToFeed(";
+                                  html_text += "'"+cover + "',";
+                                  html_text += "'"+title + "',";
+                                  html_text += "'"+year + "',";
+                                  html_text += "'"+rating + "',";
+                                  html_text += "'"+details + "')\" /></td></tr>\n";
+                              }
+                              html_text += "</table>";
+                          }
+                          else {
+                              html_text = "No Results found!";
+                          }
+                          document.getElementById("dynamic").innerHTML = html_text;
+                          return false; 
+                    }
+                }
+            }
+
+        </script>
+        <style type="text/css">
+            .auto-style1 {
+                width: 122px;
+            }
+            #sel {
+                width: 119px;
+                margin-left: 0px;
+            }
+        </style>
+    </head>
+    <body>
+<script>
+    window.fbAsyncInit = function () {
+        // init the FB JS SDK
+        FB.init({
+            appId: '204143499720102', // App ID from the App Dashboard
+            channelUrl: 'http://cs-server.usc.edu:37863/examples/servlets/Movies.html', // Channel File for x-domain communication
+            status: true, // check the login status upon init?
+            cookie: true, // set sessions cookies to allow your server to access the session?
+            xfbml: true  // parse XFBML tags on this page?
+        });
+
+
+        // Additional initialization code such as adding Event Listeners goes here
+        FB.getLoginStatus(function (response) {
+            if (response.status === 'connected') {
+                // connected
+            } else if (response.status === 'not_authorized') {
+                // not_authorized
+            } else {
+                // not_logged_in
+            }
+        });
+    };
+
+    function login() {
+        FB.login(function (response) {
+            if (response.authResponse) {
+                // connected
+            } else {
+                // cancelled
+            }
+        });
+    }
+    function postToFeed(cover, title, year, rating, details) {
+
+        // calling the API ...
+        var obj = {
+            method: 'feed',
+            link: details,
+            picture: cover,
+            name: title,
+            caption: 'I am interested in this movie/series/game',
+            description: title + ' released in ' + year + ' has a rating of ' + rating,
+            properties: { "Look at user reviews": { "text": "here", "href": details } }
+        };
+
+        function callback(response) {
+            document.getElementById('msg').innerHTML = "Post ID: " + response['post_id'];
+        }
+
+        FB.ui(obj, callback);
+    }
+    // Load the SDK's source Asynchronously
+    (function (d, debug) {
+        var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+        if (d.getElementById(id)) { return; }
+        js = d.createElement('script'); js.id = id; js.async = true;
+        js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
+        ref.parentNode.insertBefore(js, ref);
+    }(document, /*debug*/ false));
+
+
+</script>
+         <script src="//connect.facebook.net/en_US/all.js"></script>
+
+           <div align="center">
+            <h2>Movie Search</h2>
+            <form method="get" id="myform" onsubmit="return false">
+                <table border="0">
+                    <tr><td >Title:</td>
+                        <td><input id="mov" type="text" name="title" /></td>
+                    </tr>
+                    <tr><td>Media Type</td>
+                        <td><select name="" id="sel">
+                            <option selected="selected" value="feature">Feature Film</option>
+                            <option value="tv_series">TV Series</option>
+                            <option value="game">Video Game</option>
+                            <option value="feature,tv_series,game">All types</option>
+                            </select></td>
+
+                    </tr>
+
+                </table>
+                
+                <input type="submit" value="SEARCH" onclick="start()" />
+            </form>
+        </div>
+        <br />
+
+        <div id="dynamic" align="center"></div>
+        
+    </body>
+</html>

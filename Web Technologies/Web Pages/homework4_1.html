@@ -1,0 +1,455 @@
+<html>
+<head>
+  
+<!--<title>View Aircraft</title> -->
+<!--
+<BODY>
+This is for USC disclaimer
+<div style="display: block; font-family: Verdana, Geneva, Arial; font-size: 10px">
+The University of Southern California does not screen or control the content on this website and thus does not guarantee the accuracy, integrity, or quality of such content.  All content on this website is provided by and is the sole responsibility of the person from which such content originated, and such content does not necessarily reflect the opinions of the University administration or the Board of Trustees
+</div>
+</BODY>
+-->
+<script>
+
+function generateHTML(xmlDoc)
+{  
+    ELEMENT_NODE = 1;    // MS parser doesn't define Node.ELEMENT_NODE
+    var returnvalueerr="error-check";
+    root=xmlDoc.DocumentElement;
+    html_text="<html><head><style>table, td, th{border:1px solid black;}td{padding:10px;}th{padding: 3px;}</style></head><body>";
+    html_text+=""
+    html_text+="<table border='2'>";
+    Nutrition5=xmlDoc.getElementsByTagName("nutrition");
+    //alert(Nutrition5.length);
+    if(Nutrition5.length==0){
+      alert("Invalid XML file");
+      return returnvalueerr;
+
+    }
+    NutritionNodeList5=Nutrition5.item(0).childNodes;
+
+    html_text+="<tbody>";
+    html_text+="<tr>";
+    x=0;  y=0;
+
+  
+              
+      	   // output the headers
+           html_text+="<h4><td align=center colspan=16><b>Daily-values</b></td></h4></tr>";
+           html_text+= "<tr>";
+    for(i=0;i<NutritionNodeList5.length;i++)
+    {  
+      if(NutritionNodeList5.item(i).nodeType==ELEMENT_NODE)
+      {  
+        header5=NutritionNodeList5.item(i).nodeName;
+                if(header5=="daily-values")
+            {
+                Nutrition=xmlDoc.getElementsByTagName("daily-values");
+                if(Nutrition.length==0)
+                {
+                    alert("Invalid XML file");
+                    return returnvalueerr;
+                }
+                NutritionNodeList=Nutrition.item(0).childNodes;
+                for(j=0;j<NutritionNodeList.length;j++)
+                {  
+                  if(NutritionNodeList.item(j).nodeType==ELEMENT_NODE)
+                  {
+                      header=NutritionNodeList.item(j).nodeName;
+				              if(header=="total-fat")
+				              {  header="total-fat";  x=120;  y=55;  
+                      }
+				        if(header=="saturated-fat")
+				              {  header="saturated-fat";  x=100;  y=67;  
+                      }
+				        if(header=="cholesterol") 
+                      {
+				              header="cholesterol"; 
+                      }
+                if(header=="sodium") 
+                      {
+
+                       header="sodium";
+                       }   
+            if(header=="carb")    
+                      {
+                        header="carb";
+                         //html_text+="<th>"+NutritionNodeList.item(j).childNodes+"</th>";
+                      }   
+            if(header=="fiber") 
+                      {
+                        header="fiber";
+                         
+                      }   
+
+          if(header=="protein")    
+                      {
+                      header="protein";
+                    
+                     }
+                      html_text+="<th>"+header+"</th>";
+                      //alert(NutritionNodeList.item(j).nodeValue);
+
+                      /*if(NutritionNodeList.item(j).childNodes.==null)
+                         html_text+="<th>NA</th>";*/
+
+                      if(NutritionNodeList.item(j).childNodes)
+                        {
+                                 
+                                  if(!NutritionNodeList.item(j).childNodes[0])
+                                  {
+                                    html_text+="<th>NA</th>";
+                                  }
+                                  else
+                                  html_text+="<th>"+NutritionNodeList.item(j).childNodes[0].nodeValue;
+                              if(NutritionNodeList[j].hasAttribute("units"))
+                                {
+                                    html_text+= (NutritionNodeList[j].getAttribute("units")+"</th>");
+                                }
+                          }
+                       
+                                //html_text+="<th>";
+                                
+                                
+                }             
+              }    
+            }
+         
+          }
+      } 
+      
+      html_text+="</tr>";
+      //html_text+="</tbody>";
+      //html_text+="</table>";  
+      
+
+
+        //html_text+="<table border='2'>";
+        //html_text+="<tbody>";
+        
+
+       html_text+="<tr>";
+        html_text+="<h4><td align=center colspan=16><b>Nutrition Categories</b></h4></td></tr>";
+        x1=0;  y1=0;
+
+flag1=0;
+for(i=0;i<NutritionNodeList5.length;i++)
+ {  
+  
+  if(NutritionNodeList5.item(i).nodeType==ELEMENT_NODE)
+    {  
+      
+      header5=NutritionNodeList5.item(i).nodeName;
+      if(header5=="food")
+         {
+            
+           Nutrition1=xmlDoc.getElementsByTagName("food");
+          if(Nutrition.length==0)
+           
+                {
+                    alert("Invalid XML file");
+                    return returnvalueerr;
+                }
+           NutritionNodeList1=Nutrition1.item(0).childNodes;
+           flag1=flag1+1;
+          for(j=0;j<NutritionNodeList1.length;j++)
+           {           
+              if(NutritionNodeList1.item(j).nodeType==ELEMENT_NODE)
+                  {  
+
+                    header1=NutritionNodeList1.item(j).nodeName;
+                    if(header1=="name")
+                        {  
+                          header1="name";    flag=1;
+                        }
+                       if(header1=="mfr")
+                       {  
+                        header1="mfr";    flag=2;
+                       }
+                       if(header1=="serving")
+                        {   
+                          header1="serving";
+                          if(NutritionNodeList1[j].hasAttribute("units") )
+                          {
+                            units1=NutritionNodeList1[j].getAttribute("units");
+
+                           
+                          }    
+
+                                                              flag=3; flag2=1;
+                        }
+                      if(header1=="calories")  
+                        {
+                          header1="calories";  
+                          /*if(NutritionNodeList1[j].hasAttributes())
+
+                          {
+                                calories_att=NutritionNodeList1[j].getAttribute("total");
+                                html_text+= "<td>"+NutritionNodeList1[j].getAttribute("total")+"</td>";
+                                calories_att1=NutritionNodeList1[j].getAttribute("fat");
+                                html_text+= "<td>"+NutritionNodeList1[j].getAttribute("fat")+"</td>";
+
+                          } */        flag=4;
+                        }
+                      if(header1=="total-fat")    
+                        {
+                          header1="total-fat";flag=4;
+                        }
+                      if(header1=="saturated-fat")    
+                        {
+                          header1="saturated-fat";flag=5;
+                        }
+                      if(header1=="sodium")  
+                        {
+                          header1="sodium";flag=6;
+                        }
+                      if(header1=="fiber")    
+                        {
+                          header1="fiber";flag=7;
+                        }
+                      if(header1=="protein")    
+                        {
+                          header1="protein";flag=8;
+                        }
+                      if(header1=="vitamins") 
+                      {
+
+                       Nutrition2=xmlDoc.getElementsByTagName("vitamins");
+                       NutritionNodeList2=Nutrition2.item(0).childNodes;
+                       for(k=0;k<NutritionNodeList2.length;k++)
+                         {  
+                          if(NutritionNodeList2.item(k).nodeType==ELEMENT_NODE)
+                              {  
+                                //header1=NutritionNodeList2.item(k).nodeName;
+                                  if(NutritionNodeList2.item(k).nodeName=="a")    
+                                  {
+                                    header1="vitamins-a";flag=10;
+                                  }
+                                
+                                if(NutritionNodeList2.item(k).nodeName=="c")    
+                                  { 
+                                    header1+="<th>vitamins-c</th>"; flag=11;
+                                  }
+                             }
+                          }
+                        }    
+                      if(header1=="minerals")
+                        {
+                          Nutrition3=xmlDoc.getElementsByTagName("minerals");
+                          NutritionNodeList3=Nutrition3.item(0).childNodes;
+                          for(l=0;l<NutritionNodeList3.length;l++)
+                        {  
+                          if(NutritionNodeList3.item(l).nodeType==ELEMENT_NODE)
+                            {  
+                                //header1=NutritionNodeList3.item(l).nodeName;
+                                  if(NutritionNodeList3.item(l).nodeName=="ca")    
+                                  {header1="minerals-ca"; flag=12;} 
+                                else
+                                  if(NutritionNodeList3.item(l).nodeName=="fe")    
+                                  {header1+="<th>minerals-fe</th>"; flag=13;}
+                            }
+                                
+                                }
+                        }    
+                        if(header1=="photo")    
+                                {
+                                  header1="photo"; 
+                                 // html_text+= "<img src= http://www-scf.usc.edu/~csci571/2013Spring/hw4/>";
+                        } 
+                  if(flag1==1)
+                  html_text+="<th>"+header1+"</th>";
+
+
+
+           
+                } 
+                }
+           
+              }
+            }
+           
+         }   
+
+           html_text+="</tr>";
+           //html_text+="</tbody>";
+           //html_text+="</table>";  
+
+           
+
+           // output out the values
+         //html_text+="<table border='2'>";
+        //html_text+="<tbody>";
+        
+
+       html_text+="<tr>";
+        html_text+="<h4><td align=center colspan=16><b>Food</b></h4></td></tr>";
+
+           Nutrition5=xmlDoc.getElementsByTagName("nutrition");
+           for(i=0;i<Nutrition5.item(0).childNodes.length;i++) //nutrition --> daily-values
+           {  
+                NutritionNodeList5=Nutrition5.item(0).childNodes.item(i);
+               // alert("boo boo"+NutritionNodeList5.nodeName+" "+Nutrition5.item(0).childNodes.length);
+                if(NutritionNodeList5.nodeName == "food")
+            {
+                //alert("boo"); //get properties of a plane
+               html_text+="<tr>";      //start a new row of the output table
+               //alert(NutritionNodeList5.childNodes.length);
+               //alert("boo boo"); 
+            for(j=0;j<NutritionNodeList5.childNodes.length;j++)
+              {  
+                //alert(NutritionNodeList5.childNodes.length);
+                if(NutritionNodeList5.childNodes.item(j).nodeType==ELEMENT_NODE) 
+			             {
+                    //alert("child nodes: "+NutritionNodeList5.childNodes.item(j).childNodes.item(0));
+			             /*if(NutritionNodeList5.item(0).childNodes.item(j).nodeName=="photo")
+				                {//handle photos separately
+	                     		html_text+="<td><img src='"+NutritionNodeList5.item(0).firstChild.nodeValue+"' width='"+x+"' height='"+y+"'></td>";  
+                        }
+		                      else */
+                      //  if(NutritionNodeList5.childNodes.item(j).childNodes.item(0))
+                        //{
+                          //if(NutritionNodeList5.childNodes.item(j).childNodes.item(0).nodeValue && NutritionNodeList5.childNodes.item(j).childNodes[0].getAttribute
+                          //{
+                            //html_text+="<td><center>"+NutritionNodeList5.childNodes.item(j).childNodes.item(0).nodeValue+"  "+NutritionNodeList5.childNodes.item(j).childNodes.item(0).getAttribute("units")+"</center></td>";
+                          
+                         /*    if(NutritionNodeList5.childNodes.item(j).childNodes.item(0).nodeName=="vitamins")
+                             {
+                               html_text+="<td><center>"+NutritionNodeList5.childNodes.item(j).childNodes.item(0).childNodes[0].nodeValue+"</center></td>";
+                                html_text+="<td><center>"+NutritionNodeList5.childNodes.item(j).childNodes.item(0).childNodes[1].nodeValue+"</center></td>";
+                             } 
+                             else if(NutritionNodeList5.childNodes.item(j).childNodes.item(0).nodeName=="minerals")
+                             {
+                               html_text+="<td><center>"+NutritionNodeList5.childNodes.item(j).childNodes.item(0).childNodes.item(0).nodeValue+"</center></td>";
+                                html_text+="<td><center>"+NutritionNodeList5.childNodes.item(j).childNodes.item(0).childNodes.item(1).nodeValue+"</center></td>";
+                             } */
+                if(NutritionNodeList5.childNodes.item(j).getAttribute("total"))
+                  {
+                     html_text+="<td><center>"+NutritionNodeList5.childNodes.item(j).getAttribute("total")+"total, "+NutritionNodeList5.childNodes.item(j).getAttribute("fat")+"fat</center></td>";
+                   }
+                   else if(!NutritionNodeList5.childNodes.item(j).childNodes.item(0)){
+                     html_text+="<td><center>NA</center></td>";       
+                   }
+                            else if(NutritionNodeList5.childNodes.item(j).childNodes.item(0).nodeValue && NutritionNodeList5.childNodes.item(j).getAttribute("units"))
+                            {
+
+                               html_text+="<td><center>"+NutritionNodeList5.childNodes.item(j).childNodes.item(0).nodeValue+" "+NutritionNodeList5.childNodes.item(j).getAttribute("units")+"</center></td>";
+                            }
+                            else if(NutritionNodeList5.childNodes.item(j).childNodes.item(0).nodeValue)
+                            {
+
+                            //alert(NutritionNodeList5.childNodes.item(j).childNodes.item(0).nodeValue);
+                             if(NutritionNodeList5.childNodes.item(j).nodeName=="photo")
+                              {
+                                
+                              html_text+="<td><center><img src='http://www-scf.usc.edu/~csci571/2013Spring/hw4/"+NutritionNodeList5.childNodes.item(j).childNodes.item(0).nodeValue+" ' height=100 width=100 ></center></td>";
+                           //   html_text+="<td><center>"+NutritionNodeList5.childNodes.item(j).getElementsByTagName("fe")[0].firstChild.nodeValue+"</center></td>";
+                                  //alert(NutritionNodeList5.childNodes.item(j).getElementsByTagName("a")[0].firstChild.nodeValue);
+                              }
+                           else  if(NutritionNodeList5.childNodes.item(j).nodeName=="minerals")
+                              {
+                                
+                              html_text+="<td><center>"+NutritionNodeList5.childNodes.item(j).getElementsByTagName("ca")[0].firstChild.nodeValue+"</center></td>";
+                              html_text+="<td><center>"+NutritionNodeList5.childNodes.item(j).getElementsByTagName("fe")[0].firstChild.nodeValue+"</center></td>";
+                                  //alert(NutritionNodeList5.childNodes.item(j).getElementsByTagName("a")[0].firstChild.nodeValue);
+                              }
+                             else  if(NutritionNodeList5.childNodes.item(j).nodeName=="vitamins")
+                              {
+                                
+                              html_text+="<td><center>"+NutritionNodeList5.childNodes.item(j).getElementsByTagName("a")[0].firstChild.nodeValue+"</center></td>";
+                              html_text+="<td><center>"+NutritionNodeList5.childNodes.item(j).getElementsByTagName("c")[0].firstChild.nodeValue+"</center></td>";
+                                  //alert(NutritionNodeList5.childNodes.item(j).getElementsByTagName("a")[0].firstChild.nodeValue);
+                              }
+                            else
+                            html_text+="<td><center>"+NutritionNodeList5.childNodes.item(j).childNodes.item(0).nodeValue+"</center></td>";
+                        
+                          }
+
+
+                            //html_text+= +units1;
+                           
+                            /*else if(NutritionNodeList5.childNodes.item(j).childNodes.item(0).nodeValue && NutritionNodeList5.childNodes.item(j).getAttribute("total")){
+                              html_text+="<td><center>"+NutritionNodeList5.childNodes.item(j).childNodes.item(0).nodeValue+" "+NutritionNodeList5.childNodes.item(j).getAttribute("units")+"</center></td>";
+                          }*/
+                          
+
+
+		                     //}
+                         
+                    }    
+              }
+               html_text+="</tr>";}  
+            }
+           html_text+="</tbody>";  html_text+="</table>";
+        
+            html_text+="</body></html>";
+}
+
+  
+function viewXML(what)
+{
+  var URL = document.getElementById("nutritiontext").value;
+  
+function loadXML(url) 
+{
+      if (window.XMLHttpRequest)
+        {// code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp=new XMLHttpRequest();   
+        }
+      else 
+      {// code for IE6, IE5
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");  
+      }
+        xmlhttp.open("GET",url,false);
+        xmlhttp.send();
+        xmlDoc=xmlhttp.responseXML;
+
+        return xmlDoc;   
+  }
+  
+
+
+ xmlDoc = loadXML(URL);
+ 
+ if (window.ActiveXObject) //if IE, simply execute script (due to async prop).
+ {  if (xmlDoc.parseError.errorCode != 0) {
+    var myErr = xmlDoc.parseError;
+    ttt= generateHTML(xmlDoc);
+    if(ttt=="error-check")
+    return;
+    generateError(xmlDoc);
+    hWin = window.open("", "Error", "height=300,width=340");
+    hWin.document.write(html_text);
+  } 
+  else      {  
+            ttt= generateHTML(xmlDoc);
+            if(ttt=="error-check")
+            return;
+            hWin = window.open("", "Assignment4", "height=800,width=600");
+            
+            hWin.document.write(html_text);   
+            }
+ } else //else if FF, execute script once XML object has loaded
+ {  xmlDoc.onload=generateHTML(xmlDoc);
+  ttt= generateHTML(xmlDoc);
+    if(ttt=="error-check")
+    return;
+    hWin = window.open("", "Assignment4", "height=800,width=600");
+    hWin.document.write(html_text);  
+ }
+ hWin.document.close();  
+}
+
+ </script>
+ </head>
+ <body>
+      <center>
+<h4>Enter URL for Nutrition XML file</h4>
+<form name="myform" method="POST" id="location">
+<input id="nutritiontext" type="text" name="URL" maxlength="255" size="100" /> <br>
+<input type="button" name="submit" value="Submit Query" onClick="viewXML(myform)" />
+</center>
+<br/>
+</form>
+</body>
+</html>

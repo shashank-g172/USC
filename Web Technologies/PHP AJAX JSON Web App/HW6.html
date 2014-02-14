@@ -1,0 +1,36 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="mystyle.css">
+<script type="text/javascript">
+function formSubmit(){
+
+if(document.getElementById("search1").value==""){
+	alert("Please enter value into search");
+document.getElementById("searchText").style.color="red";
+}	
+else{
+	document.getElementById("form1").submit();
+}
+
+}
+</script>
+</head>
+<body>
+<div style="text-align:center;"><h1>Discography Search</h1></div>
+<form method="post" action="HW6.php" id="form1" class="formclass">
+<table style="border:1px;" height=120 width=300 align="center" cellpadding=10>
+<tr><td align=right><div id="searchText">Search: </div></td><td align=left><input type="text" name="search" style="height: 25px; width: 250px" id="search1" /></td><tr>
+<tr><td align=right >Type:</td><td align=left >
+<select name="searchType" style="width: 125px">
+  <option value="artists" default >Artists</option>
+  <option value="albums">Albums</option>
+  <option value="songs">Songs</option>
+</select></td></tr>
+<tr><td></td><td align=left>
+<input type="reset"  style="height: 25px; width: 90px" />
+<input id="btn" type="button" value="Search" style="height: 25px; width: 155px" onclick="formSubmit()" />
+</td></tr>
+</table>
+</form>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:fb="https://www.facebook.com/2008/fbml">
+  <head>
+    <title>My Feed Dialog Page</title>
+  </head>
+  <body>
+    <div id='fb-root'></div>
+    <p><input type="button" onclick='postToFeed(); return false;' value='Post'></p>
+    <p id='msg'></p>
+
+    <script> 
+      FB.init({appId: "511042045598384",channelUrl : 'http://cs-server.usc.edu:19449/channel.html', status: true, cookie: true});
+
+      function postToFeed() {
+
+        // calling the API ...
+        var obj = {
+          method: 'feed',
+            name: 'Britney Spears',
+            caption: 'I like Britney Spears who is active since 1990s-2010s',
+            description: (
+            'Genre of Music is: Pop\/Rock \<center\>\<\/center\>' +
+            '\<center\>\<\/center\>Look at details: here\<center\>\<\/center\>'
+           ),
+            link: 'https://developers.facebook.com/docs/reference/javascript/',
+           picture: 'http://cps-static.rovicorp.com/3/JPG_170/MI0003/146/MI0003146622.jpg?partner=allrovi.com'
+        };
+
+        function callback(response) {
+          document.getElementById('msg').innerHTML = "Post ID: " + response['post_id'];
+        }
+
+        FB.ui(obj, callback);
+      }
+    
+    </script>
+  </body>
+</html>

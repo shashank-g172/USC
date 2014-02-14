@@ -1,0 +1,19 @@
+<html>
+<body>
+
+<script language="JavaScript">
+var xmlDoc = new ActiveXObject("Microsoft.XMLDOM")
+xmlDoc.async="false"
+xmlDoc.load("note.xml")
+
+document.write
+("The From element contains: ")
+
+document.write
+(xmlDoc.getElementsByTagName("from").item(0).text)
+
+</script>
+
+</body>
+</html>
+

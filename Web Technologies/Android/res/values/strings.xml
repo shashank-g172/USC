@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Assignment9</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_main_activity">SimpleImageTextList</string>
+    <string name="image">Image thumbnail</string>
+    <string name="ETSearch">Type to search</string>
+    <string name="BSearch">Search</string>
+    <string name="DSearch">Discography Search</string>
+    <string name="postFb">Post to Facebook</string>
+    <string name="fb">Facebook</string>
+    <string name="playSample">Sample Music</string>
+    
+    <string-array name="types">
+        <item id="artists">Artists</item>
+        <item id="albums">Albums</item>
+        <item id="songs">Songs</item>
+    </string-array>
+</resources>
