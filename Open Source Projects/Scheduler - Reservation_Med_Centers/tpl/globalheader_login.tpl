@@ -38,7 +38,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	{jsfile src="phpscheduleit.js"}
 		{cssfile src="normalize.css"}
 		{cssfile src="nav.css"}
-		{cssfile src="style.css"}
+		{cssfile src="style_login.css"}
 		{if $UseLocalJquery}
 			{cssfile src="scripts/css/smoothness/jquery-ui-1.9.0.custom.min.css"}
 		{else}

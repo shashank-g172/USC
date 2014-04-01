@@ -1,15 +1,39 @@
-#logo {
+#sur_header {
+	position: absolute;
+	left:10px;
+	top:100px;
 	float:left;
-	color:#fff;
-	font-size:16pt;
-	height:63px;
+	width:60%;
+}
+#sur_header h2
+{
+	display:inline-block;
+	font-size: 2.5em;
+	font-weight: 700;
+	color: #000;
 }
 
-#logo img {
-	max-width: 100%;
-	padding-left:12px;
+#logo {
+	position: absolute;
+	top:-20px;
+	left:20px;
+	float:left;
+	width:60%;
 }
-
+#logo h1
+{
+	display:inline-block;
+	font-size: 2.5em;
+	text-transform: uppercase;
+	font-weight: 700;
+	color: #FFF;
+}
+/*
+#logo a
+{
+	text-decoration:none;
+	color: #FFF;
+}*/
 #nav {
 	list-style: none none;
 	padding-left:25px;
@@ -59,7 +83,7 @@
 #header {
     min-width: 900px;
     margin-right: 10px;
-    background: #3f3e49;
+    background: #00688b;
 	border-right: solid 1px #3f3e49;
     height: 111px;
     -moz-border-radius-bottomleft: 3px;
@@ -76,8 +100,8 @@
 
 #header-top {
     height:65px;
-	background-color: #fff;
-    border-bottom: solid 1px #272632;
+	background-color: #00688b;
+    
 }
 
 #nav .menubaritem {
@@ -98,7 +122,7 @@ li.menubaritem a {
 }
 
 .menubaritem a:hover, li.menubaritem:hover, li.menubaritem ul li {
-	background: #4a4a56;
+	background: #00688b;
 	color: #fff;
 }
 
@@ -126,14 +150,14 @@ li.menubaritem ul li a:hover{
 #signout {
 	float: right;
 	padding-right: 10px;
-	color: #0f1723;
+	color: #FFF;
 	font-size: 11pt;
 	text-align: right;
 	vertical-align: middle;
 }
 
 #signout a {
-	color: #0f1723;
+	color: #FFF;
 }
 
 #nav li.help {

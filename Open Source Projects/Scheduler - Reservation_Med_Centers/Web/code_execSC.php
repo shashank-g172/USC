@@ -33,7 +33,7 @@ $result = mysql_query($query,$bd);
 
 if (!$result) {
     
-   //header("location: scsign.php?remarks=dup");	
+   header("location: scsign.php?remarks=dup");	
    mysql_close($bd);
   
 }
@@ -43,7 +43,7 @@ $num_rows = mysql_num_rows($result);
 if($num_rows > 0)
 
 {
-    //header("location: scsign.php?remarks=dup");
+    header("location: scsign.php?remarks=dup");
 	mysql_close($bd);   
     die();
 
@@ -51,21 +51,7 @@ if($num_rows > 0)
 
 $registration = new Registration();
 $user = $registration->Register($uname, $email, $cname, "", $password, "America/Chicago", "en_us", 1, array(), array());
-/*
-$passwordEncryption = new PasswordEncryption();
-$encryptedPassword = $passwordEncryption->EncryptPassword($password)->EncryptedPassword();
-$salt = $passwordEncryption->EncryptPassword($password)->Salt();
-$query = "INSERT INTO users (email, password, fname, username, salt, status_id) VALUES ('$email', '$encryptedPassword', '$cname','$uname', '$salt', '1')";
-echo $query;
-$result = mysql_query($query);
 
-if ($result === false)
-{
-	//header("location: docsign.php?remarks=fail");
-	mysql_close($bd);
-
-}
-*/
 $query = "SELECT user_id from users where username = '$uname'";
 $result1 = mysql_query($query,$bd);
 if($result1)
@@ -82,19 +68,19 @@ if($result1)
 		}
 		$result = mysql_query($query);
 		echo $query;
-		$query1 = "INSERT INTO user_groups (user_id, group_id) VALUES ('$uid', '2')";
+		$query1 = "INSERT INTO user_groups (user_id, group_id) VALUES ('$uid', '4')";
 		echo $query1;
 		$result = mysql_query($query1);
 		if ($result === false)
 		{
-			//	header("location: docsign.php?remarks=fail");
-			//	mysql_close($bd);
+				header("location: docsign.php?remarks=fail");
+				mysql_close($bd);
 
 		}
 	}
 
 }
 
-//header("location: scsign.php?remarks=success");
+header("location: dashboard.php");
 mysql_close($bd);
 ?>

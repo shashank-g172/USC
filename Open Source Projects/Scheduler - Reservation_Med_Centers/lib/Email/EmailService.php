@@ -46,13 +46,16 @@ class EmailService implements IEmailService
 
 	public function Send(IEmailMessage $emailMessage)
 	{
+		
 		$this->phpMailer->ClearAllRecipients();
 		$this->phpMailer->ClearReplyTos();
 		$this->phpMailer->CharSet = $emailMessage->Charset();
 		$this->phpMailer->Subject = $emailMessage->Subject();
 		$this->phpMailer->Body = $emailMessage->Body();
 
+		
 		$from = $emailMessage->From();
+		
 		$defaultFrom = Configuration::Instance()->GetSectionKey(ConfigSection::EMAIL, ConfigKeys::DEFAULT_FROM_ADDRESS);
 		$this->phpMailer->SetFrom(empty($defaultFrom) ? $from->Address() : $defaultFrom, $from->Name());
 
@@ -91,6 +94,7 @@ class EmailService implements IEmailService
 		try
 		{
 			$success = $this->phpMailer->Send();
+			
 		}
 		catch(Exception $ex)
 		{

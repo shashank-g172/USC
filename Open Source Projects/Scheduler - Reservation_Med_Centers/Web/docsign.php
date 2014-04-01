@@ -12,8 +12,9 @@ Released   : 20130903
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-
+<link href="styles.css" rel="stylesheet" type="text/css" media="all" />
 <script type="text/javascript">
+
 
 function validateForm()
 {
@@ -99,19 +100,15 @@ if (j==null || j=="")
 }
 </script>
 
-<style>
-.error {color: #FF0000;}
-</style>
+
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Doctor Sign up</title>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800" rel="stylesheet" />
-<link href="default.css" rel="stylesheet" type="text/css" media="all" />
-<link href="fonts.css" rel="stylesheet" type="text/css" media="all" />
-<link href="css/kendo.common.min.css" rel="stylesheet">
-<link href="css/kendo.default.min.css" rel="stylesheet">
+<link href="css/styles.css" rel="stylesheet" type="text/css" media="all" />
+
 
 <!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
 
@@ -119,28 +116,18 @@ if (j==null || j=="")
 <body>
 
 
-
-
-
-
-
-
-
-		<!-- ****************************************************************************************************************** -->
-
-			<div style="padding:20px">
-				<img align="middle" style="width:25%; text-align:center" src="images/doctorprofile.jpeg" width="200" height="200" alt="" />
-			</div>
-
-		<!-- ****************************************************************************************************************** -->
-
-
 	
-<div id="wrapper">
-	<p><span class="error">* required field.</span></p>
-<form name="reg"  action="code_exec.php" onsubmit="return validateForm()" method="post">
-	 
+
+<div class="img">
+<img  src="img/header.jpg" width='100%' />
+</div>
+
 <?php 
+
+	  /*  header('Content-Type: image/jpg');
+		readfile('C:\wamp\www\slots\Web\img\header.jpg');*/
+		
+		
 		
 		if (!isset($_GET['remarks'])) {$remarks=""; }
 		else {$remarks=$_GET['remarks']; }
@@ -155,38 +142,162 @@ if (j==null || j=="")
 		}
 		if ($remarks=='dup')
 		{
-		echo 'Username Duplicate. Retry';
+		echo '<p align="center"><b>Username Duplicate. Retry</b></p>';
 		}
 ?>	 
-	<br>
-	<b>Username</b>: &emsp;&emsp;&emsp;&emsp;<input type="text" name="Uname" />  <br/>
-	<b>Password</b>: &nbsp;&emsp;&emsp;&emsp;&emsp;<input type="password" name="password" />    <br/>
-	<b>Firstname</b>: &nbsp;&nbsp;&nbsp;&emsp;&emsp;&emsp;<input type="text" name="Fname" />     <br/>
-	<b>Lastname</b>: &emsp;&emsp;&emsp;&emsp;<input type="text" name="Lname" />     <br/>
-	<b>Email</b>: &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<input type="email" name="email" />    <br/>
-	<b>Phone Number</b>:&nbsp;&nbsp;&emsp;<input type='tel' pattern='\d{10}'  name="PNo">  <br/>
-	<b>Gender</b>: &emsp;&emsp;&emsp;&emsp;&emsp;<input type="radio" name="gender" value="Male" checked="checked">Male<br>			
-	&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<input type="radio" name="gender" value="Female">Female<br>
+
+<div id="carbonForm">
+<form name="reg"  action="code_exec.php" onsubmit="return validateForm()" method="post" enctype="multipart/form-data">
+* required field	 
+
 	
-	<b>License Number</b>&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" name="LNum" />    <br/>
-	<b>Expiry Date</b>: &emsp;&emsp;&emsp;<input type="date" name="EDate" />   <br/>
-	<b>Specialization</b>:&emsp;&emsp;<input type="text" name="spec" />  <br/>
-	<b>Description</b>: &emsp;&emsp;&emsp;<textarea name="desc" rows="5" cols="40"></textarea>  <br/><br/>
+	<div>	
+	<div class="formRow">
+            <div class="label">
+                <label for="Uname">Username*:</label>
+            </div>
+            
+            <div class="field">
+                <input type="text" name="Uname"/>
+            </div>
+    </div>	
 	
+	
+		
+	<div class="formRow">
+            <div class="label">
+                <label for="password">Password*:</label>
+            </div>
+            
+            <div class="field">
+                <input type="password" name="password"/>
+            </div>
+    </div>	
+	
+	
+	
+	<div class="formRow">
+            <div class="label">
+                <label for="Fname">FirstName*:</label>
+            </div>
+            
+            <div class="field">
+                <input type="text" name="Fname"/>
+            </div>
+    </div>	
+	
+	
+		
+	<div class="formRow">
+            <div class="label">
+                <label for="Lname">LastName*:</label>
+            </div>
+            
+            <div class="field">
+                <input type="text" name="Lname"/>
+            </div>
+    </div>	
+	
+	<div class="formRow">
+            <div class="label">
+                <label for="email">Email*:</label>
+            </div>
+            
+            <div class="field">
+                <input type="text" name="email"/>
+            </div>
+    </div>	
+		
+	<div class="formRow">
+            <div class="label">
+                <label for="PNo">Phone*:</label>
+            </div>
+            
+            <div class="field">
+                <input type='tel' pattern='\d{10}' name="PNo"/>
+            </div>
+     </div>	
+		
+	
+	<div class="formRow">
+            <div class="label">
+                <label for="gender">Gender*:</label>
+            </div>
+            
+            <div class="field">
+                <input type="radio" name="gender" value="Male" checked="checked">Male<br>			
+				<input type="radio" name="gender" value="Female">Female<br>
+            </div>
+     </div>	
+		
+	<div class="formRow">
+            <div class="label">
+                <label for="LNum">License#*:</label>
+            </div>
+            
+            <div class="field">
+                <input type="text" name="LNum" />
+            </div>
+    </div>	
+	
+		
+	<div class="formRow">
+            <div class="label">
+                <label for="EDate">ExpiryDate*:</label>
+            </div>
+            
+            <div class="field">
+                <input type="date" name="EDate" min="2014-03-31" />
+            </div>
+    </div>	
+		
+	<div class="formRow">
+            <div class="label">
+                <label for="spec">Specialization*:</label>
+            </div>
+            
+            <div class="field">
+                <input type="text" name="spec" />
+            </div>
+    </div>	
+		
+	<div class="formRow">
+            <div class="label">
+                <label for="desc">Description:</label>
+            </div>
+            
+            <div class="field">
+                <textarea name="desc" rows="5" cols="40" style="background: #E0EEE0;"></textarea>  <br/><br/>
+            </div>
+    </div>	
+		
+	<div class="formRow">
+            <div class="label">
+                <label for="uploaded">Certificate*:</label>
+            </div>
+            
+            <div class="field">
+                <input name="uploaded" type="file" />
+            </div>
+    </div>	
+	</div>
+	
+	
+	<br/><br/><br/><br/>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
 	<input type="submit" name="Register" value="Register"/>
-	</form>
 	
-
+	
+	</form>
 </div>
-				
+<br><br>				
 							
-				
-							
-</div>
-			
+<div class="img">
+<img  src="img/footer.jpg" width='100%' />
+</div>			
 
-<div id="copyright" class="container">
-	<p>Copyright (c) 2013 SurgeryAssist.com. All rights reserved. | Support by Team 03 from USC </a> | Thank to <a href="http://www.freecsstemplates.org/" rel="nofollow">FreeCSSTemplates.org</a>.</p>
-</div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="script.js"></script>
+
 </body>
 </html>

@@ -10,6 +10,9 @@ require_once(ROOT_DIR . 'Domain/Access/namespace.php');
 require_once(ROOT_DIR . 'Domain/User.php');
 require_once(ROOT_DIR . 'lib/Application/Authentication/Registration.php');
 require_once(ROOT_DIR . 'lib/Application/Authentication/IRegistration.php');
+require_once(ROOT_DIR . 'lib/Application/Authentication/IAuthentication.php');
+require_once(ROOT_DIR . 'lib/Application/Authentication/Authentication.php');
+require_once(ROOT_DIR . 'lib/Application/Authentication/WebAuthentication.php');
 
 $uname=$_POST['Uname'];
 $password=$_POST['password'];
@@ -22,8 +25,11 @@ $LNum=$_POST['LNum'];
 $EDate=$_POST['EDate'];
 $spec=$_POST['spec'];
 $desc=$_POST['desc'];
+$image = $_FILES['uploaded']['name'];
 
-$query= "SELECT * FROM docprofile where duser_name='$uname'";
+
+
+$query= "SELECT * FROM users where username='$uname'";
 $result = mysql_query($query,$bd);
 
 if (!$result) {
@@ -46,16 +52,7 @@ if($num_rows > 0)
 
 $registration = new Registration();
 $user = $registration->Register($uname, $email, $fname, $lname, $password, "America/Chicago", "en_us", 1, array(), array());
-/*$query = "INSERT INTO users (email, password, fname, lname, username, salt, status_id) VALUES ('$email', '$encryptedPassword', '$fname', '$lname', '$uname', '$salt', '1')";
-$result = mysql_query($query);
 
-if ($result === false)
-{
-	header("location: docsign.php?remarks=fail");
-	mysql_close($bd);
-
-}
-*/
 $query = "SELECT user_id from users where username = '$uname'";
 $result1 = mysql_query($query,$bd);
 if($result1)
@@ -65,23 +62,25 @@ if($result1)
 		$uid = $row['user_id'];
 		echo "User id ", $uid;
 		if ($desc) {
-			$query = "INSERT INTO docprofile (user_id, duser_name, doctor_fname,doctor_lname,phone_no,email,gender,license_no,expirydate,spec_data,personal_desc )VALUES('$uid', '$uname', '$fname', '$lname', '$PNo', '$email', '$gender', '$LNum', '$EDate', '$spec', '$desc')";
+			$query = "INSERT INTO docprofile (user_id, duser_name, doctor_fname,doctor_lname,phone_no,email,gender,license_no,expirydate,spec_data,personal_desc, certificate)VALUES('$uid', '$uname', '$fname', '$lname', '$PNo', '$email', '$gender', '$LNum', '$EDate', '$spec', '$desc','$image')";
 		}
 		else {
-			$query = "INSERT INTO docprofile (user_id, duser_name, doctor_fname,doctor_lname,phone_no,email,gender,license_no,expirydate,spec_data )VALUES('$uid', '$uname', '$fname', '$lname', '$PNo', '$email', '$gender', '$LNum', '$EDate', '$spec')";
+			$query = "INSERT INTO docprofile (user_id, duser_name, doctor_fname,doctor_lname,phone_no,email,gender,license_no,expirydate,spec_data,certificate)VALUES('$uid', '$uname', '$fname', '$lname', '$PNo', '$email', '$gender', '$LNum', '$EDate', '$spec','$image')";
 		}
 		$result = mysql_query($query);
-		echo $query;
 		if ($result === false)
 		{
-			//header("location: docsign.php?remarks=fail");
-			//mysql_close($bd);
+			header("location: docsign.php?remarks=fail");
+			
+			//header("location: redirect.html");
+			mysql_close($bd);
 		
 		}
 	}
 	
 }
 
-//header("location: docsign.php?remarks=success");
+header("location: dashboard.php");
+//header("location: redirect.html");
 mysql_close($bd);
 ?>

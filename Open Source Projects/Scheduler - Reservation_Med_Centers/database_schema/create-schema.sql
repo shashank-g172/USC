@@ -166,7 +166,7 @@ create table DocProfile (`user_id` mediumint(8) unsigned NOT NULL primary key, d
 -- Table structure for table scprofile
 --
 drop table if exists `scprofile`;
-create table scprofile(`user_id` mediumint(8) unsigned NOT NULL primary key, duser_name varchar(85) unique, CenterName varchar(40)not null, SCaddress varchar(30)not null, city varchar(20) not null, stat varchar(10) not null, zip int(5) not null, SCphone int(10) not null,email varchar(20) not null, staff_size int(5) not null, details varchar(64), foreign key (`user_id`) references users(`user_id`) on update cascade on delete cascade);
+create table scprofile(`user_id` mediumint(8) unsigned NOT NULL primary key, SCuser_name varchar(85) unique, CenterName varchar(40)not null, SCaddress varchar(30)not null, city varchar(20) not null, stat varchar(10) not null, zip int(5) not null, SCphone int(10) not null,email varchar(20) not null, staff_size int(5) not null, details varchar(64), foreign key (`user_id`) references users(`user_id`) on update cascade on delete cascade);
 
 --
 -- Table structure for table `user_groups`
