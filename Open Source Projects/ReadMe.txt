@@ -1,6 +1,6 @@
 PHP Booked Project 
 
- This is a scheduling reservation system for doctors and their assistants to book surgery rooms acorss surgery centers around Los Angeles for outpatient surgeries.
+ This is a scheduling reservation system for doctors and their assistants to book surgery rooms across surgery centers around Los Angeles for outpatient surgeries.
 
  It offers various features, like map navigation based on current location, closest centers to a zip code and the number of surgery rooms available for the duration of the surgery. 
 
