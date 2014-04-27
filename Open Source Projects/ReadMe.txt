@@ -13,4 +13,4 @@ THey need to placed within the
 1 .htdocs folder if you are using XAMPP
 2. www folder if you are using WAMP
 
-The files that need modofication are config.php, and depending on your system, php.ini and your tools to work on it would be Eclipse with the PDT plugin installed.
+The files that need modification are config.php, and depending on your system, php.ini and your tools to work on it would be Eclipse with the PDT plugin installed.
