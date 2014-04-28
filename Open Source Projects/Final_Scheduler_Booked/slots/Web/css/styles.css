@@ -1,0 +1,271 @@
+#carbonForm{
+    /* The main form contain1er */
+    //background-color:#C1CDCD;
+    border:1px solid #080808;
+    margin:20px auto;
+    padding:20px;
+    width:500px;
+
+    -moz-box-shadow:0 0 1px #444 inset;
+    -webkit-box-shadow:0 0 1px #444 inset;
+    box-shadow:0 0 1px #444 inset;
+}
+
+.fieldContainer{
+    /* The light rounded section, which contans the fields */
+    background-color:#1E1E1E;
+    border:1px solid #0E0E0E;
+    padding:30px 10px;
+
+    /* CSS3 box shadow, used as an inner glow */
+    -moz-box-shadow:0 0 20px #292929 inset;
+    -webkit-box-shadow:0 0 20px #292929 inset;
+    box-shadow:0 0 20px #292929 inset;
+}
+
+#carbonForm,.fieldContainer,.errorTip{
+    /* Rounding the divs at once */
+    -moz-border-radius:12px;
+    -webkit-border-radius:12px;
+    border-radius:12px;
+}
+
+.formRow{
+    height:35px;
+    padding:10px;
+    position:relative;
+}
+
+.label{
+    float:left;
+    padding:0 20px 0 0;
+    text-align:left;
+    width:110px;
+	
+}
+
+label{
+    /*font-family:Century Gothic,Myriad Pro,Arial,Helvetica,sans-serif;*/
+	font-family:font-family: "Lucida Bright", Georgia, serif;;
+    font-size:13px;
+    letter-spacing:1px;
+    line-height:35px; /* Neat line height trick */
+	font-weight: bold;
+}
+
+.field{
+    float:left;
+}
+
+.field input{
+    /* The text boxes */
+    border:1px solid #999;
+    color:#666666;
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:15px;
+    padding:4px 5px;
+    background: #E0EEE0;
+    outline:none;
+	box-shadow: rgba(200,200,200,1) 0 4px 5px;
+}
+
+#submit{
+    /* The submit button */
+    border:1px solid #f4f4f4;
+    cursor:pointer;
+    height:40px;
+    text-indent:-9999px;
+    text-transform:uppercase;
+    width:110px;
+
+    background:url("img/submit.png") no-repeat center center #d0ecfd;
+
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    border-radius:6px;
+}
+
+#submit.active{
+    /* Marking the submit button as active adds the preloader gif as background */
+    background-image:url("img/preloader.gif");
+}
+
+input:hover,
+input:focus{
+    /* CSS3 glow effect */
+    -moz-box-shadow:0 0 8px lightblue;
+    -webkit-box-shadow:0 0 8px lightblue;
+    box-shadow:0 0 8px lightblue;
+}
+
+imgaa {
+max-width: 100%;
+height: 2px;
+}
+
+div.dropdown_container {
+    width:10px;
+}
+
+select.my_dropdown {
+    width:auto;
+}
+
+a.image img {
+      
+   }
+
+a.image:hover img {
+   position: relative;
+    width: auto; /* maybe even try auto */
+   z-index: 100;
+   }
+
+
+.zoom_img_1 img{
+
+float: center;
+height:75px;
+width:75px;
+margin: 20px;
+text-align:center;
+padding:4px 5px;
+bottom: 0;
+margin-left: 140px;
+margin-bottom:10px;
+border: 0;
+
+-moz-transition:-moz-transform 0.1s ease-in; 
+-webkit-transition:-webkit-transform 0.1s ease-in; 
+-o-transition:-o-transform 0.1s ease-in;
+}
+
+.zoom_img_1 img:hover{
+-moz-transform:scale(5); 
+-webkit-transform:scale(5);
+-o-transform:scale(3);
+}
+
+.zoom_img_2 img{
+
+float: center;
+height:75px;
+width:75px;
+margin: 20px;
+text-align:center;
+padding:4px 5px;
+bottom: 0;
+margin-left: 250px;
+margin-bottom:10px;
+margin-top: -92px;
+border: 0;
+
+-moz-transition:-moz-transform 0.1s ease-in; 
+-webkit-transition:-webkit-transform 0.1s ease-in; 
+-o-transition:-o-transform 0.1s ease-in;
+}
+
+.zoom_img_2 img:hover{
+-moz-transform:scale(5); 
+-webkit-transform:scale(5);
+-o-transform:scale(3);
+}
+
+.zoom_img_3 img{
+
+float: center;
+height:75px;
+width:75px;
+margin: 20px;
+text-align:center;
+padding:4px 5px;
+bottom: 0;
+margin-left: 360px;
+margin-bottom:10px;
+margin-top: -92px;
+border: 0;
+
+-moz-transition:-moz-transform 0.1s ease-in; 
+-webkit-transition:-webkit-transform 0.1s ease-in; 
+-o-transition:-o-transform 0.1s ease-in;
+}
+
+.zoom_img_3 img:hover{
+-moz-transform:scale(5); 
+-webkit-transform:scale(5);
+-o-transform:scale(3);
+}
+
+.zoom_img_4 img{
+
+float: left;
+height:75px;
+width:75px;
+margin: 20px;
+text-align:center;
+padding:4px 5px;
+bottom: 0;
+margin-left: 10px;
+border: 0;
+
+-moz-transition:-moz-transform 0.1s ease-in; 
+-webkit-transition:-webkit-transform 0.1s ease-in; 
+-o-transition:-o-transform 0.1s ease-in;
+}
+
+.zoom_img_4 img:hover{
+-moz-transform:scale(5); 
+-webkit-transform:scale(5);
+-o-transform:scale(3);
+}
+
+.filter-type {
+    border-bottom: 1px dotted #666;
+}
+
+.sidebarlistscroll {
+    width: 220px;
+    height: 100px;
+    overflow-y: scroll;
+    overflow-x: scroll;
+    border: none;
+    visibility: hidden;
+}
+#filter{display:none}
+#filter:checked + .sidebarlistscroll{
+    visibility: visible;
+}
+
+.filter-type1 {
+    border-bottom: 1px dotted #666;
+}
+
+.sidebarlistscroll1 {
+    width: 220px;
+    height: 100px;
+    margin-bottom: 15px;
+    overflow-y: scroll;
+    overflow-x: scroll;
+    border: none;
+    visibility: hidden;
+}
+#filter1{display:none}
+#filter1:checked + .sidebarlistscroll1{
+    visibility: visible;
+}
+
+
+.del1
+{
+    margin-left:260px; 
+    margin-top: 10px;
+    text-decoration:none;
+}
+
+.del2
+{
+    margin-left:380px; 
+    margin-top: -15px;
+    text-decoration:none;
+    
+}
